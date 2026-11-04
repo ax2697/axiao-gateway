@@ -9,3 +9,12 @@ pub fn changelog() -> Result<serde_json::Value, String> {
         "text": RAW,
     }))
 }
+
+/// 当前版本。给界面显示的**唯一来源**。
+///
+/// 以前左下角和关于页各自写死了 "0.1.0"，版本改到 0.9.x 了界面上还是 0.1.0，
+/// 用户看到的就是"怎么还是旧版"。版本号只该有一个来源：编译时的 Cargo.toml。
+#[tauri::command]
+pub fn app_version() -> Result<String, String> {
+    Ok(env!("CARGO_PKG_VERSION").to_string())
+}

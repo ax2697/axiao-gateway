@@ -1,6 +1,6 @@
 [package]
 name = "axiao-gateway"
-version = "0.9.3"
+version = "0.9.5"
 edition = "2021"
 description = "阿晓网关助手：WorkBuddy 网关/切换/签到 一体化桌面应用"
 

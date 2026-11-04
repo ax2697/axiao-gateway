@@ -145,6 +145,7 @@ fn main() {
             media_server::media_server_stop,
             media_server::media_server_status,
             changelog::changelog,
+            changelog::app_version,
             logs::gateway_logs,
             logs::gateway_logs_clear,
             // 免费模型目录（freellmapi catalog）

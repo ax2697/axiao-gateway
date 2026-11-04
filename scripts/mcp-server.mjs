@@ -69,7 +69,7 @@ process.stdin.on("data", async (chunk) => {
           result: {
             protocolVersion: "2024-11-05",
             capabilities: { tools: {} },
-            serverInfo: { name: "axiao-gateway", version: "0.1.0" },
+            serverInfo: { name: "axiao-gateway", version: "0.9.5" },
           },
         });
       } else if (msg.method === "tools/list") {

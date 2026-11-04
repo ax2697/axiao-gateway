@@ -36,7 +36,7 @@ pub fn update_targets() -> Result<Vec<UpdateTarget>, String> {
             id: "app".into(),
             name: "阿晓网关助手".into(),
             kind: "self".into(),
-            current: "0.1.0".into(),
+            current: env!("CARGO_PKG_VERSION").into(),
             repo: "ax2697/axiao-gateway".into(),
             note: "本应用自身（GitHub Releases 自更新）".into(),
         },

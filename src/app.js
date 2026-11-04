@@ -687,6 +687,17 @@ $("#btn-cache-clear")?.addEventListener("click", async () => {
   }
 });
 
+/* ---------- 版本号（唯一来源：编译时的 Cargo.toml） ---------- */
+async function loadVersion() {
+  try {
+    const v = await invoke("app_version");
+    const a = $("#app-ver");
+    if (a) a.textContent = `v${v} · 本地运行`;
+    const b = $("#about-ver");
+    if (b) b.textContent = v;
+  } catch {}
+}
+
 /* ---------- 选路策略 ---------- */
 async function loadRouting() {
   const sel = $("#routing-strategy");
@@ -3108,6 +3119,7 @@ async function loadAll() {
   await safe("响应缓存", renderCache);
   await safe("访问 Key", loadAccess);
   await safe("选路策略", loadRouting);
+  await safe("版本号", loadVersion);
   await safe("组件", async () => { state.components = await invoke("component_status"); });
   await safe("面板", loadPanel);
 
