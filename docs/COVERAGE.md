@@ -53,9 +53,39 @@
 | 免费额度聚合 | 已实现 | 免费额度 |
 | Deno+CF 10 上游 | 已实现 | `deploy/cloudflare-worker.js`（部署需 CF 账号） |
 
+## v0.9.x 新增能力（2026-11-04 补录）
+
+> 这一批是 0.9.0 ~ 0.9.5 新增的，上表未收录导致「38 项」这个数字失真。补录后**总数 38 → 59**。
+
+| 能力 | 状态 | 落点 |
+|:---|:---|:---|
+| 生图（文生图 / 图生图） | 已实现 | `media::image_generate` + `media::media_save` |
+| 音频生成 | 已实现 | `media::audio_generate` |
+| 生视频 + 轮询取产物 | 已实现 | `media::video_generate` / `media::video_poll` |
+| 本地媒体服务（产物托管） | 已实现 | `media_server::media_server_start/stop/status` |
+| 访问 Key 管理（增删改查 / 明文查看） | 已实现 | `access::access_keys_get/save/reveal/delete` |
+| 访问 Key 用量清零 | 已实现 | `access::access_usage_reset` |
+| 熔断器状态与手动复位 | 已实现 | `breaker::breaker_status/reset` |
+| 响应缓存统计 / 开关 / 清空 | 已实现 | `cache::cache_stats/set_enabled/clear` |
+| 模型目录（读 / 列 / 加上游） | 已实现 | `catalog::catalog_get/catalog_models/catalog_add_upstream` + `catalog.json` |
+| 本机凭证扫描（CLI / IDE 登录态） | 已实现 | `creds::scan_local_creds` |
+| 端点探测（连通性 / 健康） | 已实现 | `probe::probe_endpoint` + `gateway::upstream_health` |
+| 模型定价表（查 / 映射维护） | 已实现 | `pricing::price_lookup/model_map_get/model_map_set` |
+| 协议转换工具链 | 已实现 | `convert.rs` + `openuri.rs` + `httpc.rs` |
+| SSE 流式转发 | 已实现 | `chat_stream.rs` + `chat_proxy.rs` |
+| 网关日志查看 / 清空 | 已实现 | `logs::gateway_logs/gateway_logs_clear` |
+| 模型上下文（token 预算） | 已实现 | `modelctx.rs` |
+| 请求分类 | 已实现 | `classify.rs` |
+| 上游模型列表 | 已实现 | `gateway::upstream_models` |
+| 更新日志读取 + 运行时版本号 | 已实现 | `changelog::changelog/app_version` |
+| 上游删除 | 已实现 | `gateway::delete_upstream` |
+
 ## 统计
 
-- 已实现：27
-- 内核已实现：9
-- 不适用：2
-- 控制台部分 / 需外部设施：0
+| 版本 | 已实现 | 内核已实现 | 不适用 | 总数 |
+|:--|:--|:--|:--|:--|
+| v0.1.0（原表） | 27 | 9 | 2 | 38 |
+| **v0.9.5（含补录）** | **48** | **9** | **2** | **59** |
+
+> 上表 38 项 + 本节 21 项 = **59 项**。另有 5 项（`catalog.json` 数据维护、定价表数据维护、
+> `classify` 规则库、`modelctx` 策略配置、媒体服务端口配置）属**配置数据**而非独立能力，未单列。

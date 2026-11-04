@@ -139,15 +139,15 @@ LobeHub（`packages/builtin-tool-*/` 一个工具一个包）。
 
 ## 这是什么项目
 
-**统一网关控制台**（Tauri v2 桌面应用）：把 WorkBuddy / CodeBuddy 网关、账号切换、签到引擎、免费额度抓取、16 家上游预设、Token 与成本统计，熔进一个窗口。
+**统一网关控制台**（Tauri v2 桌面应用）：把 WorkBuddy / CodeBuddy 网关、账号切换、签到引擎、免费额度抓取、26 家上游预设、Token 与成本统计，熔进一个窗口。
 
 | 项 | 值 |
 |---|---|
 | 形态 | 桌面应用（Rust 后端 + 原生 HTML/CSS/JS 前端，WebView2） |
-| 当前版本 | **v0.1.0**（见 `开发状态.md` frontmatter） |
+| 当前版本 | **v0.9.5**（见 `开发状态.md` frontmatter） |
 | 远端仓库 | https://github.com/ax2697/axiao-gateway （Public，main） |
 | 协议 | MIT（`LICENSE`） |
-| 视图数 | 29 视图 / 38 项能力核对（`docs/COVERAGE.md`） |
+| 视图数 | 31 视图 / 102 命令 / 36 Rust 模块 / 59 项能力核对（`docs/COVERAGE.md`） |
 
 > ⛔ `AGENTS.md` 与 `开发状态.md` 是**本机总纲与台账**，随仓库公开，用于让贡献者看懂取舍。
 > 与 `xiaozhi-will` 不同——那个项目的 `AGENTS.md` 不上传，本项目**上传**（含版本规则本身）。

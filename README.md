@@ -6,7 +6,7 @@
 
 ### Axiao Gateway Assistant · Unified Gateway Console
 
-**v0.1.0** · 中文 / English 双语
+**v0.9.5** · 中文 / English 双语
 
 > 一个窗口，管完几十个网关。
 > 账号、签到、积分、额度、Token、成本、上游、协议、日志、更新 —— 全在一个 Tauri 桌面应用里。
@@ -14,10 +14,10 @@
 > *One window for dozens of AI gateways.*
 > *Accounts, check-in, credits, quotas, tokens, cost, upstreams, protocols, logs and updates — in one Tauri desktop app.*
 
-![Version](https://img.shields.io/badge/version-v0.1.0-6a5acd?style=flat-square)
-![Views](https://img.shields.io/badge/views-29-2ec4b6?style=flat-square)
-![Commands](https://img.shields.io/badge/commands-71-00b4d8?style=flat-square)
-![Upstreams](https://img.shields.io/badge/upstreams-16-8e44ad?style=flat-square)
+![Version](https://img.shields.io/badge/version-v0.9.5-6a5acd?style=flat-square)
+![Views](https://img.shields.io/badge/views-31-2ec4b6?style=flat-square)
+![Commands](https://img.shields.io/badge/commands-102-00b4d8?style=flat-square)
+![Upstreams](https://img.shields.io/badge/upstreams-26-8e44ad?style=flat-square)
 ![Protocols](https://img.shields.io/badge/protocols-3%20%7C%20OpenAI%20%7C%20Anthropic-9d4edd?style=flat-square)
 ![Stack](https://img.shields.io/badge/stack-Tauri%20v2%20%7C%20Rust%20%7C%20WebView2-ff9f43?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-ffca3a?style=flat-square)
@@ -57,14 +57,14 @@ OpenAI Chat / OpenAI Responses / Anthropic Messages 三种混用。想同时接 
 
 | 维度 | 统一前 | 统一后 |
 |:---|:---|:---|
-| **上游** | 一个网关 = 一家平台 | 16 家预设（WorkBuddy / Trae / Z.AI / BigModel / MiniMax / 豆包 / 混元 / 硅基流动 / Kimi / DSH / OpenCode Zen …）+ 自定义，全部收进一个 `/v1` |
+| **上游** | 一个网关 = 一家平台 | 26 家预设（WorkBuddy / Trae / Z.AI / BigModel / MiniMax / 豆包 / 混元 / 硅基流动 / Kimi / DSH / OpenCode Zen …）+ 自定义，全部收进一个 `/v1` |
 | **协议** | 三种混用，换客户端重配 | OpenAI Chat / OpenAI Responses / Anthropic Messages 三协议并存，Claude Code / Codex / DSH / Cline / Cherry Studio 直接接 |
 | **账号** | 各家账号各管各的 | 一处管理账号、积分、到期、签到状态，CN / Global 分段，批量导入导出 |
 | **观测** | 每家统计口径不同 | 统一的 Token（含缓存命中率）/ 积分 / 成本账本 / 请求日志 / 钩子事件 |
 | **控制面** | 没有或各写一套 | Key 分发、模型白名单、冷却熔断、上下文压缩、设备指纹隔离 |
 | **运维** | 每个内核单独更新 | 16 个组件统一检查更新，GitHub 不通时可配代理 |
 
-**规模**：29 视图 · 71 个 Tauri 命令 · 16 个 Rust 模块 · 16 家上游预设 · 3 种协议 · 38 项能力核对（27 已实现 + 9 内核已实现 + 2 不适用）。
+**规模**：31 视图 · 102 个 Tauri 命令 · 36 个 Rust 模块 · 26 家上游预设 · 3 种协议 · 59 项能力核对（48 已实现 + 9 内核已实现 + 2 不适用）。
 
 > 哪些是本项目自有代码、哪些由便携版内核执行，见 [`docs/COVERAGE.md`](docs/COVERAGE.md)。不假装全是自己写的。
 
@@ -96,7 +96,7 @@ OpenAI Chat / OpenAI Responses / Anthropic Messages 三种混用。想同时接 
 ### 账号 · 签到 · 额度
 
 - **账号管理**：统一管理 WorkBuddy / CodeBuddy（IDE / CLI / VS Code / JetBrains）/ Trae / Qoder / ZCode / MiniMax / 豆包 / CodeArts / DSH / OpenCode Zen 的账号、积分、到期与签到状态，CN / Global 分段
-- **添加账号**：① 浏览器登录（`login/start` + `login/poll`）② 其他平台 API Key 直连（16 家预设 + 自定义，自动带出 Base URL）③ 导入 cockpit JSON
+- **添加账号**：① 浏览器登录（`login/start` + `login/poll`）② 其他平台 API Key 直连（26 家预设 + 自定义，自动带出 Base URL）③ 导入 cockpit JSON
 - **签到中心**：原生直连上游 —— 签到 / 成长任务 / Buddy 旅行 / 抽奖 / 活跃保活 / 批量签到，**不启动外部 exe**
 - **任务中心**：实时抓成长任务队列，一键完成 / 批量领取
 - **免费额度**：WorkBuddy 积分 + Trae / Z.AI / BigModel / OpenCode Zen / Kimi / MiniMax / CommandCode 额度聚合
@@ -104,7 +104,7 @@ OpenAI Chat / OpenAI Responses / Anthropic Messages 三种混用。想同时接 
 ### 网关 · 协议 · 上游
 
 - **三协议并存**：OpenAI Chat Completions / OpenAI Responses / Anthropic Messages
-- **16 家上游预设 + 自定义**：权重路由、冷却熔断、会话粘性
+- **26 家上游预设 + 自定义**：权重路由、冷却熔断、会话粘性
 - **控制面**：Key 与模型白名单，网关侧强制执行
 - **上下文压缩**：system + 最近 N 条，单条截断，请求链路真实生效
 - **设备指纹隔离**：按账号注入 `x-device-id` / `x-machine-id`
@@ -164,10 +164,10 @@ node --check src/app.js                                          # 前端语法�
 
 ```
 阿晓网关助手/
-├─ src/                     前端（29 个视图）
+├─ src/                     前端（31 个视图）
 │  ├─ index.html  app.js  style.css
-│  └─ assets/logos/         10 个平台真实图标
-├─ src-tauri/               Rust 后端（16 个模块 / 71 个命令）
+│  └─ assets/logos/         22 个平台真实图标
+├─ src-tauri/               Rust 后端（36 个模块 / 102 个命令）
 │  ├─ Cargo.toml  tauri.conf.json  Cargo.lock
 │  └─ src/
 │     ├─ main.rs            命令注册
@@ -201,7 +201,7 @@ node --check src/app.js                                          # 前端语法�
 
 - **新人先看**：[新手教程（从零到能用）](docs/GETTING-STARTED.md) · [便携版使用说明](docs/USAGE.txt)
 - **为什么做统一**：[生态全景 PANORAMA](docs/PANORAMA.md) · [融合清单](docs/FUSION-MANIFEST.md)
-- **技术**：[架构](docs/ARCHITECTURE.md) · [数据模型](docs/DATA-MODEL.md) · [能力覆盖 38 项](docs/COVERAGE.md) · [switch 命令表](docs/SWITCH-COMMANDS.md)
+- **技术**：[架构](docs/ARCHITECTURE.md) · [数据模型](docs/DATA-MODEL.md) · [能力覆盖 59 项](docs/COVERAGE.md) · [switch 命令表](docs/SWITCH-COMMANDS.md)
 - **来源**：[逆向报告](docs/REVERSE-REPORT.md) · [第三方声明](THIRD_PARTY_NOTICES.md)
 - **维护**：[维护指南](docs/MAINTENANCE.md) · [构建排错](docs/BUILD-NOTES.md) · [路线图](docs/ROADMAP.md)
 - **真相源**：[开发状态.md](开发状态.md) · [AGENTS.md](AGENTS.md)
@@ -224,15 +224,19 @@ node --check src/app.js                                          # 前端语法�
 
 ## 📜 更新记录
 
-### v0.1.0 — 2026-11-03 · 首发
+完整更新记录见 [`CHANGELOG.md`](CHANGELOG.md)（v0.1.0 → v0.9.5 逐版本列出新增 / 修复 / 验收）。
+
+### v0.9.5 — 2026-11-04 · 统一网关控制台首发（开源）
+
+**规模**：31 视图 · 102 Tauri 命令 · 36 个 Rust 模块 · 26 家上游预设 · 3 种协议 · 22 个平台图标。
 
 **新增**
 
-- Tauri v2 桌面壳：29 个视图 / 71 个命令 / 16 个 Rust 模块
+- Tauri v2 桌面壳：31 个视图 / 102 个命令 / 36 个 Rust 模块
 - 账号管理（CN/Global 分段、批量导入导出）、添加账号（浏览器登录 / API Key 直连 / 导入 JSON）
 - 签到中心（原生签到 / 成长 / 旅行 / 抽奖 / 保活 / 批量）、任务中心、模型与档位
 - Token 统计（含缓存命中率）、积分统计与到期、免费额度聚合、成本账本
-- 16 家上游预设 + 自定义、三协议并存、控制面、上下文压缩、设备指纹隔离
+- 26 家上游预设 + 自定义、三协议并存、控制面、上下文压缩、设备指纹隔离
 - 客户端配置导出、MCP 服务端脚本、Cloudflare Worker、自动更新（16 组件）、托盘常驻
 - 上游增删改、对话测试（真实走一次网关并写账本）、账本空态解释
 
@@ -246,8 +250,9 @@ node --check src/app.js                                          # 前端语法�
 **验收**
 
 - `scripts/preflight.ps1` 退出码 0 · `node --check src/app.js` 退出码 0
-- 视图 29/29 · 命令 71 · 覆盖表 38 条（27+9+2）逐项核对一致
+- 覆盖表 59 条（48+9+2）逐项核对一致
 - 三个上游来源仓协议经 GitHub API 核对均为 MIT
+- v0.1.0 首发记录见 [`CHANGELOG.md`](CHANGELOG.md)
 
 ---
 
@@ -268,7 +273,7 @@ It is **not** yet another gateway core. It is the missing unified layer on top o
 | **Control plane** | Key distribution, model allow-list, cooldown/breaker, context compression, device fingerprint isolation |
 | **Operations** | 16 components checked for updates, proxy support, tray resident |
 
-**Scale**: 29 views · 71 Tauri commands · 16 Rust modules · 16 upstream presets · 38 capability items audited (27 implemented + 9 kernel-provided + 2 not applicable).
+**Scale**: 31 views · 102 Tauri commands · 36 Rust modules · 26 upstream presets · 59 capability items audited (48 implemented + 9 kernel-provided + 2 not applicable).
 
 ### Security
 
