@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420" role="img" aria-label="阿晓网关助手 · 统一网关控制台">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b0e14"/>
+      <stop offset="55%" stop-color="#111722"/>
+      <stop offset="100%" stop-color="#0a0d13"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#22d3ee" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="18%" cy="22%" r="42%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="84%" cy="76%" r="46%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="420" fill="url(#bg)"/>
+  <rect width="1200" height="420" fill="url(#grid)"/>
+  <rect width="1200" height="420" fill="url(#glow1)"/>
+  <rect width="1200" height="420" fill="url(#glow2)"/>
+
+  <!-- 左侧图标：多上游汇聚成一个入口 -->
+  <g transform="translate(150,210)" stroke-linecap="round" fill="none">
+    <circle r="74" fill="#22d3ee" fill-opacity="0.07" stroke="#22d3ee" stroke-opacity="0.30" stroke-width="1.5"/>
+    <circle r="46" fill="#0b0e14" stroke="#22d3ee" stroke-opacity="0.55" stroke-width="1.5"/>
+    <path d="M-34 -22 L-10 0" stroke="#22d3ee" stroke-width="2.2"/>
+    <path d="M34 -22 L10 0" stroke="#22d3ee" stroke-width="2.2"/>
+    <path d="M-34 22 L-10 0" stroke="#22d3ee" stroke-width="2.2"/>
+    <path d="M34 22 L10 0" stroke="#22d3ee" stroke-width="2.2"/>
+    <path d="M0 -34 L0 -14" stroke="#f59e0b" stroke-width="2.2"/>
+    <circle cx="0" cy="-10" r="5.5" fill="#f59e0b" stroke="none"/>
+    <circle cx="-36" cy="-24" r="3.6" fill="#22d3ee" stroke="none"/>
+    <circle cx="36" cy="-24" r="3.6" fill="#22d3ee" stroke="none"/>
+    <circle cx="-36" cy="24" r="3.6" fill="#22d3ee" stroke="none"/>
+    <circle cx="36" cy="24" r="3.6" fill="#22d3ee" stroke="none"/>
+  </g>
+
+  <!-- 主标题 -->
+  <text x="272" y="176" font-family="PingFang SC,Microsoft YaHei,Noto Sans SC,sans-serif" font-size="58" font-weight="800" fill="#f5f7fa" letter-spacing="2">阿晓网关助手</text>
+  <text x="274" y="216" font-family="SF Pro Text,Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#22d3ee" letter-spacing="3.2">AXIAO GATEWAY ASSISTANT · UNIFIED CONSOLE</text>
+
+  <rect x="272" y="238" width="188" height="3" rx="1.5" fill="url(#line)"/>
+
+  <text x="272" y="280" font-family="PingFang SC,Microsoft YaHei,Noto Sans SC,sans-serif" font-size="21" fill="#9aa7b8">散落的几十个网关，收进一个窗口</text>
+
+  <!-- 管线节点 -->
+  <g transform="translate(272,320)" font-family="SF Pro Text,Segoe UI,Arial,sans-serif" font-size="12.5">
+    <g>
+      <rect x="0" y="0" width="128" height="34" rx="17" fill="#22d3ee" fill-opacity="0.10" stroke="#22d3ee" stroke-opacity="0.40"/>
+      <text x="64" y="22" text-anchor="middle" fill="#8fe3ee">账号·签到·额度</text>
+    </g>
+    <g transform="translate(144,0)">
+      <rect x="0" y="0" width="112" height="34" rx="17" fill="#ffffff" fill-opacity="0.045" stroke="#ffffff" stroke-opacity="0.16"/>
+      <text x="56" y="22" text-anchor="middle" fill="#b9c4d2">16 家上游</text>
+    </g>
+    <g transform="translate(272,0)">
+      <rect x="0" y="0" width="128" height="34" rx="17" fill="#ffffff" fill-opacity="0.045" stroke="#ffffff" stroke-opacity="0.16"/>
+      <text x="64" y="22" text-anchor="middle" fill="#b9c4d2">三协议统一</text>
+    </g>
+    <g transform="translate(416,0)">
+      <rect x="0" y="0" width="122" height="34" rx="17" fill="#ffffff" fill-opacity="0.045" stroke="#ffffff" stroke-opacity="0.16"/>
+      <text x="61" y="22" text-anchor="middle" fill="#b9c4d2">Token·成本</text>
+    </g>
+    <g transform="translate(554,0)">
+      <rect x="0" y="0" width="156" height="34" rx="17" fill="#f59e0b" fill-opacity="0.12" stroke="#f59e0b" stroke-opacity="0.45"/>
+      <text x="78" y="22" text-anchor="middle" fill="#f6c77a">一个窗口全管完</text>
+    </g>
+  </g>
+
+  <!-- 右下角版本 -->
+  <text x="1128" y="392" text-anchor="end" font-family="SF Pro Text,Segoe UI,Arial,sans-serif" font-size="13" fill="#5f6b7c">v0.1.0</text>
+</svg>

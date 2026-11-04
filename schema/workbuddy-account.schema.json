@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.axiao.ai/schemas/workbuddy-account.schema.json",
+  "title": "WorkBuddy Unified Account Export",
+  "description": "融合 workbuddy-switch(accounts.json) + WorkBuddy签到助手(wb_refresh_tokens.json) 的统一账号导入/导出格式；clientRules 与 REA SetupClient 规则严格对齐（name/configPath/markerPath/skillPath/format/discoveryPaths/sharedRegistration/quitBeforeSetup）。",
+  "type": "object",
+  "required": ["schemaVersion", "clientRules", "accounts"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "exportedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "generator": {
+      "type": "string",
+      "description": "导出程序标识，如 wb-switch / bworkbuddy / rea-sync"
+    },
+    "clientRules": {
+      "type": "array",
+      "description": "与 REA SetupClient 对齐的客户端规则；账号通过 client 字段引用其 name。",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/clientRule" }
+    },
+    "accounts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/account" }
+    }
+  },
+  "$defs": {
+    "clientRule": {
+      "type": "object",
+      "description": "REA SetupClient 兼容规则（字段名/语义与 REA 源码一致）。",
+      "required": ["name", "format"],
+      "additionalProperties": true,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "客户端标识，如 workbuddy / codebuddy / trae / qoder",
+          "pattern": "^[a-z0-9][a-z0-9._-]{0,63}$"
+        },
+        "displayName": { "type": "string" },
+        "configPath": {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "array", "items": { "type": "string" } }
+          ],
+          "description": "REA 规则中的配置路径；相对路径视为相对用户 home。"
+        },
+        "configPaths": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "按优先级递增的候选配置路径，含写入目标。"
+        },
+        "markerPath": {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "array", "items": { "type": "string" } }
+          ]
+        },
+        "skillPath": {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "array", "items": { "type": "string" } }
+          ]
+        },
+        "discoveryPaths": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "format": {
+          "type": "string",
+          "enum": [
+            "json",
+            "claude_code",
+            "toml",
+            "vscode",
+            "copilot_cli",
+            "opencode",
+            "commandcode",
+            "grok",
+            "omp",
+            "pi",
+            "kimi",
+            "hermes",
+            "zcode_fallback",
+            "zcode",
+            "dsh",
+            "unsupported"
+          ]
+        },
+        "sharedRegistration": { "type": "boolean" },
+        "quitBeforeSetup": { "type": "boolean" },
+        "zcodeFallbackPath": { "type": "string" },
+        "authFile": {
+          "type": "string",
+          "description": "扩展字段：该客户端实际授权文件（如 CodeBuddy 的 auth.workbuddy.workbuddy-ai）。"
+        },
+        "apiBase": {
+          "type": "string",
+          "description": "扩展字段：上游 API 基址（如 https://copilot.tencent.com）。"
+        }
+      }
+    },
+    "account": {
+      "type": "object",
+      "required": ["id", "client", "enabled"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "本地唯一 ID（导入合并主键）"
+        },
+        "client": {
+          "type": "string",
+          "description": "外键：必须引用 clientRules[].name"
+        },
+        "displayName": { "type": "string" },
+        "accountId": {
+          "type": "string",
+          "description": "上游账号 ID（switch accounts.json 的 accountId）"
+        },
+        "accessToken": {
+          "type": ["string", "null"],
+          "description": "访问令牌；导出时可脱敏为 null。"
+        },
+        "refreshToken": {
+          "type": ["string", "null"],
+          "description": "刷新令牌；WorkBuddy-Daily 的 wb_refresh_tokens.json 来源。"
+        },
+        "expiresAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "credits": {
+          "type": ["number", "null"],
+          "description": "剩余积分（switch credits）"
+        },
+        "creditUsage": {
+          "type": ["number", "null"],
+          "description": "已用积分（switch credit_usage）"
+        },
+        "creditExpiry": {
+          "type": ["string", "null"],
+          "description": "积分过期日（switch credit_expiry）"
+        },
+        "enabled": { "type": "boolean" },
+        "lastUsedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "region": {
+          "type": ["string", "null"],
+          "enum": ["cn", "intl", null],
+          "description": "国内站/国际站（对应 cn / workbuddy.ai）"
+        },
+        "source": {
+          "type": "string",
+          "enum": ["switch", "signin", "manual", "rea"],
+          "description": "账号导入来源"
+        },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

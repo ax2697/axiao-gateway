@@ -1,0 +1,25 @@
+[package]
+name = "axiao-gateway"
+version = "0.9.3"
+edition = "2021"
+description = "阿晓网关助手：WorkBuddy 网关/切换/签到 一体化桌面应用"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+reqwest = { version = "0.12", features = ["json", "multipart", "native-tls", "stream"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "time"] }
+chrono = { version = "0.4", features = ["serde"] }
+dirs = "5"
+keyring = "2"
+
+[profile.release]
+panic = "abort"
+codegen-units = 16
+lto = false
+opt-level = "s"
+strip = true

@@ -1,0 +1,8 @@
+[target.x86_64-pc-windows-gnu]
+linker = "rust-lld"
+rustflags = ["-C", "link-self-contained=yes"]
+
+# 注意：资源对象（manifest + 图标）不在这里加 link-arg。
+# rustflags 对依赖的 build script 也生效，相对路径会找不到，绝对路径又会写死机器。
+# 正确位置是 src-tauri/build.rs 里的 `cargo:rustc-link-arg`，只作用于最终 exe。
+# 详见 docs/BUILD-NOTES.md 坑 6。

@@ -1,0 +1,14 @@
+{
+  "name": "axiao-gateway",
+  "version": "0.1.0",
+  "private": true,
+  "description": "阿晓网关助手：WorkBuddy 网关/切换/签到 一体化 Tauri 桌面应用",
+  "scripts": {
+    "dev": "tauri dev",
+    "build": "tauri build",
+    "tauri": "tauri"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2"
+  }
+}

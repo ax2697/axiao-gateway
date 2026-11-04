@@ -1,0 +1,993 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>阿晓网关助手</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="logo">晓</div>
+          <div class="brand-text">
+            <div class="brand-name">阿晓网关助手</div>
+            <div class="brand-sub">WorkBuddy Switch 融合版</div>
+          </div>
+        </div>
+        <nav id="nav">
+          <div class="nav-group">账号</div>
+          <button class="nav-item" data-view="dashboard"><span class="ico">◎</span>仪表盘</button>
+          <button class="nav-item active" data-view="accounts"><span class="ico">◉</span>账号管理</button>
+          <button class="nav-item" data-view="switch"><span class="ico">⇄</span>账号切换</button>
+          <button class="nav-item" data-view="sessions"><span class="ico">↔</span>关联会话</button>
+          <button class="nav-item" data-view="tokens"><span class="ico">▥</span>Token 统计</button>
+          <button class="nav-item" data-view="usage"><span class="ico">▤</span>用量</button>
+          <button class="nav-item" data-view="creditstats"><span class="ico">◫</span>积分统计</button>
+          <button class="nav-item" data-view="credits"><span class="ico">◔</span>积分构成</button>
+          <button class="nav-item" data-view="quota"><span class="ico">◈</span>免费额度</button>
+
+          <div class="nav-group">网关</div>
+          <button class="nav-item" data-view="upstreams"><span class="ico">⇧</span>上游管理</button>
+          <button class="nav-item" data-view="protocols"><span class="ico">⇆</span>协议与路由</button>
+          <button class="nav-item" data-view="models"><span class="ico">◇</span>模型与档位</button>
+          <button class="nav-item" data-view="create"><span class="ico">✦</span>图像与视频</button>
+          <button class="nav-item" data-view="cost"><span class="ico">¥</span>成本账本</button>
+          <button class="nav-item" data-view="requests"><span class="ico">⇢</span>请求日志</button>
+          <button class="nav-item" data-view="logs"><span class="ico">≡</span>运行日志</button>
+          <button class="nav-item" data-view="config"><span class="ico">⚒</span>网关配置</button>
+
+          <div class="nav-group">任务</div>
+          <button class="nav-item" data-view="tasks"><span class="ico">✓</span>任务中心</button>
+          <button class="nav-item" data-view="growth"><span class="ico">◎</span>积分任务</button>
+          <button class="nav-item" data-view="signin"><span class="ico">☑</span>签到中心</button>
+          <button class="nav-item" data-view="schedule"><span class="ico">⏱</span>定时任务</button>
+          <button class="nav-item" data-view="hooks"><span class="ico">⚓</span>钩子</button>
+
+          <div class="nav-group">系统</div>
+          <button class="nav-item" data-view="io"><span class="ico">⇅</span>导入导出</button>
+          <button class="nav-item" data-view="update"><span class="ico">↻</span>自动更新</button>
+          <button class="nav-item" data-view="extras"><span class="ico">✧</span>扩展能力</button>
+          <button class="nav-item" data-view="components"><span class="ico">▣</span>融合组件</button>
+          <button class="nav-item" data-view="coverage"><span class="ico">☷</span>能力覆盖</button>
+          <button class="nav-item" data-view="guide"><span class="ico">?</span>使用说明</button>
+          <button class="nav-item" data-view="settings"><span class="ico">⚙</span>设置</button>
+          <button class="nav-item" data-view="changelog"><span class="ico">✎</span>更新日志</button>
+          <button class="nav-item" data-view="about"><span class="ico">ⓘ</span>关于</button>
+        </nav>
+        <div class="sidebar-foot"><span class="dot on"></span>v0.1.0 · 本地运行</div>
+      </aside>
+
+      <div class="main">
+        <div class="content">
+          <div class="page-head">
+            <div class="page-head-text">
+              <h1 id="page-title">账号管理</h1>
+              <p id="page-sub">统一管理 WorkBuddy、CodeBuddy（IDE / CLI / VS Code / JetBrains）、Trae、Qoder、ZCode、MiniMax、豆包、华为云 CodeArts、DSH、MonkeyCode、OpenCode Zen 等平台账号、积分与签到状态。</p>
+            </div>
+            <div class="page-actions">
+              <button class="btn sm" id="btn-page-guide" title="打开这一页的教程">怎么用</button>
+              <div class="platform-logos">
+                <img class="logo-img" src="assets/logos/workbuddy.png" alt="WorkBuddy" title="WorkBuddy" />
+                <img class="logo-img" src="assets/logos/codebuddy.png" alt="CodeBuddy" title="CodeBuddy" />
+                <img class="logo-img" src="assets/logos/trae.png" alt="Trae" title="Trae" />
+                <img class="logo-img" src="assets/logos/qoder.png" alt="Qoder" title="Qoder" />
+                <img class="logo-img" src="assets/logos/zcode.svg" alt="ZCode" title="ZCode" />
+                <img class="logo-img" src="assets/logos/minimax.ico" alt="MiniMax" title="MiniMax" />
+                <img class="logo-img" src="assets/logos/doubao.png" alt="豆包" title="豆包" />
+                <img class="logo-img" src="assets/logos/codearts.ico" alt="CodeArts" title="CodeArts" />
+                <img class="logo-img" src="assets/logos/vscode.png" alt="VS Code" title="VS Code" />
+                <img class="logo-img" src="assets/logos/jetbrains.png" alt="JetBrains" title="JetBrains" />
+              </div>
+              <button class="icon-btn" id="btn-refresh" title="刷新">↻</button>
+              <button class="btn green" id="btn-add">OAuth 扫码添加</button>
+            </div>
+          </div>
+          <!-- 1 仪表盘 -->
+          <div class="view" id="view-dashboard">
+            <section class="stats" id="stats"></section>
+            <div class="dash-grid">
+              <section class="card">
+                <div class="card-head"><h2>近 7 天 Token</h2><span class="muted" id="spark-sum">—</span></div>
+                <div class="chart-box" id="chart-tokens"></div>
+              </section>
+              <section class="card">
+                <div class="card-head"><h2>积分构成</h2><span class="muted" id="donut-sum">—</span></div>
+                <div class="chart-box" id="chart-credits"></div>
+              </section>
+            </div>
+            <section class="card">
+              <div class="card-head"><h2>快捷操作</h2></div>
+              <div class="btn-row" style="padding:14px 16px">
+                <button class="btn primary" data-goto="accounts">账号池</button>
+                <button class="btn" data-goto="signin">启动签到</button>
+                <button class="btn" data-goto="io">导入导出</button>
+                <button class="btn" data-goto="components">融合组件</button>
+              </div>
+            </section>
+            <section class="card">
+              <div class="card-head"><h2>最近事件</h2></div>
+              <div class="table-wrap"><table class="tbl"><thead><tr><th>时间</th><th>类型</th><th>详情</th></tr></thead><tbody id="tb-dash-hooks"></tbody></table></div>
+            </section>
+          </div>
+
+          <!-- 2 账号管理 -->
+          <div class="view active" id="view-accounts">
+            <div class="segmented">
+              <button class="on" data-realm="cn">国内版</button>
+              <button data-realm="global">国际版</button>
+            </div>
+
+            <section class="add-card">
+              <div class="add-text">
+                <h3>添加与迁移账号</h3>
+                <p>快速接入新账号，或从已有环境恢复</p>
+              </div>
+              <div class="add-actions">
+                <button class="btn green" id="btn-oauth">OAuth 扫码添加</button>
+                <button class="btn" id="btn-import-backup">导入备份</button>
+                <button class="btn" disabled>导出</button>
+              </div>
+            </section>
+
+            <section class="cli-card">
+              <div class="cli-text">
+                <h3>› CodeBuddy CLI 接入</h3>
+                <p>Windows 使用 CodeBuddy settings.json 中的认证 Token。保活刷新只更新后续启动使用的 Token；切换账号会先关闭正在运行的 CodeBuddy CLI，重新打开 CLI 后即用新账号。</p>
+              </div>
+              <button class="btn" id="btn-cli-attach">接入 CLI</button>
+            </section>
+
+            <div class="section-head">
+              <h2>账号 <span class="count" id="acc-count">0</span></h2>
+              <div class="section-icons">
+                <button class="icon-btn" id="btn-sign-all" title="全部签到">☑</button>
+                <button class="icon-btn" id="btn-disable-all" title="全部禁用">⊘</button>
+                <button class="icon-btn" id="btn-list-refresh" title="刷新">↻</button>
+              </div>
+            </div>
+
+            <section class="account-panel">
+              <div class="table-wrap"><table class="tbl"><thead><tr><th>账号</th><th>状态</th><th style="width:150px">积分 / 已用</th><th>过期</th><th>来源</th><th class="op">操作</th></tr></thead><tbody id="tb-accounts"></tbody>
+              <p class="hint" id="acc-note" style="padding:12px 4px 4px">两类账号的区别：<b>WorkBuddy / CodeBuddy</b> 走官方登录，有积分、能签到、可切换；<b>API Key / 本地桥</b>（豆包桥、智谱、Kimi、火山方舟…）是上游渠道，<b>没有签到活动也没有积分余额</b>，能力是对话 + 画图 + 视频——点它那行的「创作」直接去用。</p></table></div>
+            </section>
+          </div>
+
+          <!-- 3 账号切换 -->
+          <div class="view" id="view-switch">
+            <section class="card">
+              <div class="card-head"><h2>账号切换</h2><span class="muted">写回 CodeBuddy 授权文件（自动备份）</span></div>
+              <div id="switch-list" class="comp-list"></div>
+            </section>
+          </div>
+
+          <!-- 关联会话 -->
+          <div class="view" id="view-sessions">
+            <section class="card">
+              <div class="card-head"><h2>会话组</h2><div class="btn-row">
+                <input id="grp-name" placeholder="组名" class="btn sm" style="min-width:120px" />
+                <button class="btn sm primary" id="btn-create-group">新建</button>
+              </div></div>
+              <div id="group-list" class="comp-list"></div>
+            </section>
+            <section class="card">
+              <div class="card-head"><h2>关联会话</h2><div class="btn-row">
+                <span class="muted" id="sessions-sum"></span>
+                <button class="btn sm" id="btn-sessions-refresh">刷新</button>
+              </div></div>
+              <div class="chart-card-body" id="sess-chart"></div>
+              <div class="table-wrap"><table class="tbl"><thead><tr><th>会话</th><th>客户端</th><th>模型</th><th>工作目录</th><th>最后事件</th><th>时间</th></tr></thead><tbody id="tb-sessions"></tbody></table></div>
+            </section>
+          </div>
+
+          <!-- Token 统计 -->
+          <div class="view" id="view-tokens">
+            <section class="card">
+              <div class="card-head"><h2>Token 统计</h2><div class="btn-row">
+                <select id="token-days" class="btn sm"><option value="1">今日</option><option value="7">近 7 天</option><option value="30" selected>近 30 天</option><option value="365">全年</option></select>
+                <button class="btn sm" id="btn-tokens-refresh">刷新</button>
+              </div></div>
+              <section class="stats" id="token-stats" style="margin:14px 16px;grid-template-columns:repeat(4,1fr)"></section>
+              <div class="tk-chart-wrap">
+                <div class="tk-head"><b>用量趋势</b><span class="muted" id="tk-chart-sub"></span></div>
+                <div id="token-chart" class="tk-chart"></div>
+              </div>
+              <div class="table-wrap"><table class="tbl"><thead><tr><th>日期</th><th class="num">输入</th><th class="num">输出</th><th class="num">缓存读</th><th class="num">总 Token</th><th class="num">调用</th></tr></thead><tbody id="tb-tokens"></tbody></table></div>
+              <p class="hint" id="token-note" style="padding:6px 16px 14px"></p>
+            </section>
+          </div>
+
+          <!-- 免费额度 -->
+          <div class="view" id="view-quota">
+            <div class="section-head">
+              <h2>免费额度</h2>
+              <button class="btn sm" id="btn-quota-refresh">刷新全部</button>
+            </div><div class="chart-card-body" id="quota-chart" style="padding:0 0 12px"></div>
+            <p class="hint" style="margin:-8px 0 14px">这页是<b>记账本</b>：告诉你每个平台还剩多少免费额度 / 积分，好决定这活派给谁。<b>三个动作</b>：①某张卡右上点「抓取」拉到最新数字（WorkBuddy 是本地读、其它平台要联网）②「刷新全部」一次全拉 ③想用某家的额度，就去「上游管理」把它加成上游，填好 Key 后网关就能走它。<br/><b>抓不到是正常的</b>：没登 Trae 插件、没填某家 Key、或那家没开放额度接口，都会显示「需…」——按提示去补，不是坏了。</p>
+            <div class="quota-grid" id="quota-grid"></div>
+            <section class="card" style="margin-top:16px">
+              <div class="card-head"><h2>免费模型目录</h2>
+                <div class="btn-row">
+                  <div class="seg" id="cat-seg">
+                    <button class="seg-item on" data-cat="all">全部</button>
+                    <button class="seg-item" data-cat="official">官方直营</button>
+                    <button class="seg-item" data-cat="pool">聚合站</button>
+                  </div>
+                  <input id="cat-q" class="btn sm" style="min-width:168px" placeholder="搜厂商 / 模型名" />
+                  <span class="muted" id="cat-meta"></span>
+                </div>
+              </div>
+              <p class="hint">35 家 / 410 个模型，<b>每家的速率限制和月度预算都是实数，不是估的</b>（来自 freellmapi 的免费目录）。看到合适的点「加为上游」，地址和协议自动填好，你只补一个 Key 就能用。<br/><b>「官方直营」</b>额度小但可长期依赖；<b>「聚合站」</b>额度宽松，但是第三方中转，稳定性和数据合规要你自己掂量——别把重要 Key 挂上去。</p>
+              <div class="cat-grid" id="cat-grid"></div>
+            </section>
+            <pre class="log" id="quota-log" style="margin-top:16px;border-radius:14px">点卡片上的「抓取」查看实时额度。</pre>
+          </div>
+
+          <!-- 自动更新 -->
+          <div class="view" id="view-update">
+            <div class="section-head"><h2>自动更新</h2><span class="muted">本应用 + 各内核 / 组件</span></div>
+            <section class="card">
+              <div class="card-head"><h2>更新代理</h2><span class="muted">GitHub 不通时填代理，留空直连</span></div>
+              <div class="cfg-grid">
+                <div class="field"><label>代理地址</label><input id="upd-proxy" placeholder="http://127.0.0.1:7897" /></div>
+              </div>
+              <div class="btn-row" style="padding:0 24px 18px;align-items:center">
+                <button class="btn primary" id="btn-save-proxy">保存代理</button>
+                <span id="upd-msg" class="msg"></span>
+              </div>
+            </section>
+            <div class="quota-grid" id="update-grid"></div>
+          </div>
+
+          <!-- 使用说明 -->
+          <div class="view" id="view-guide">
+            <div class="section-head"><h2>使用说明 · 全功能教程</h2><span class="muted" id="guide-count"></span></div>
+            <section class="card">
+              <div class="card-head"><h2>先看这里</h2></div>
+              <p class="hint">每一页在右上角都有一个「<b>怎么用</b>」按钮，点它会直接跳到本文对应章节。<br/>整体顺序建议：<b>添加账号 → 配上游 → 接客户端 → 用起来 → 看统计</b>。看不懂哪页就先搜功能名。</p>
+              <div class="btn-row" style="padding:0 24px 16px"><input id="guide-q" class="btn sm" style="min-width:280px" placeholder="搜功能名，例如：签到 / 上游 / 图像 / 导入" /></div>
+            </section>
+            <div id="guide-body"></div>
+            <section class="card">
+              <div class="card-head"><h2>便携版预置配置</h2><span class="muted">直接读便携版 config.json</span></div>
+              <div class="kv" id="portable-info"></div>
+            </section>
+          </div>
+
+          <!-- 4 用量 -->
+          <div class="view" id="view-usage">
+            <section class="card">
+              <div class="card-head"><h2>用量</h2><span class="muted" id="usage-sum"></span></div>
+              <div class="tk-chart-wrap" style="margin-top:10px">
+                <div class="tk-head"><b>按上游汇总</b><span class="muted" id="usage-chart-sub"></span></div>
+                <div id="usage-chart" class="tk-chart"></div>
+              </div>
+              <div class="table-wrap"><table class="tbl usage-tbl">
+                <thead><tr><th style="width:168px">时间</th><th style="width:150px">账号</th><th style="width:120px">上游</th><th>模型</th><th class="num" style="width:92px">Prompt</th><th class="num" style="width:104px">Completion</th><th class="num" style="width:80px">成本</th></tr></thead>
+                <tbody id="tb-ledger"></tbody></table></div>
+            </section>
+          </div>
+
+          <!-- 4.5 积分统计 -->
+          <div class="view" id="view-creditstats">
+            <section class="card">
+              <div class="card-head"><h2>积分明细</h2><span class="muted" id="creditstats-sum"></span></div><div class="chart-card-body" id="cs-chart"></div>
+              <div class="table-wrap"><table class="tbl">
+                <thead><tr><th>账号 / 日期</th><th class="num">消耗积分</th><th>说明</th></tr></thead>
+                <tbody id="tb-creditstats"></tbody></table></div>
+              <p class="hint" style="padding:10px 16px 14px">数据来自 <code>data/state.json</code> 的累计值。上游没有开放「按日积分消耗」接口，
+              所以大多数情况这里显示的是<b>每个账号的累计已用</b>（总额 − 剩余），不是每天明细——
+              要看按日用量请去「Token 统计」。</p>
+            </section>
+          </div>
+
+          <!-- 5 积分构成 -->
+          <div class="view" id="view-credits">
+            <section class="card">
+              <div class="card-head"><h2>积分构成</h2><span class="muted" id="credit-sum-sub">按账号汇总</span></div>
+              <div id="credit-kpis" class="credit-kpis"></div>
+              <div class="credit-grid">
+                <div class="credit-donut" id="credit-donut"></div>
+                <div class="credit-list" id="credit-bars"></div>
+              </div>
+            </section>
+          </div>
+
+          <!-- 6 任务中心 -->
+          <div class="view" id="view-tasks">
+            <section class="card">
+              <div class="card-head"><h2>成长任务队列</h2>
+                <div class="btn-row"><span id="task-source" class="muted"></span><select id="task-uid" class="btn sm"></select><button class="btn primary" id="btn-task-all">一键完成可自动任务</button></div>
+              </div>
+              <p class="hint" id="task-note" style="padding:12px 16px 0">「一键完成」会把这批任务一次性提交给上游；<b>上游对这类批量操作有软限流</b>，
+点了没反应或提示 429 就是被限了——本应用会自动退避重试 3 次（约 26 秒），仍失败请等 5~10 分钟。
+任务多的时候更稳的做法是<b>隔几分钟分几次点</b>。</p>
+              <div class="table-wrap"><table class="tbl"><thead><tr><th>任务</th><th>进度</th><th>奖励</th><th>状态</th></tr></thead><tbody id="tb-tasks"></tbody></table></div>
+            </section>
+          </div>
+
+          <!-- 6.1 积分任务（面板「积分任务」弹窗的原生版） -->
+          <div class="view" id="view-growth">
+            <section class="card">
+              <div class="card-head"><h2>积分任务</h2>
+                <div class="btn-row">
+                  <select id="growth-uid" class="btn sm"></select>
+                  <button class="btn" id="btn-growth-reload">重新查询</button>
+                  <button class="btn" id="btn-growth-accept">全部接受</button>
+                  <button class="btn primary" id="btn-growth-claim">一键完成可领任务</button>
+                </div>
+              </div>
+              <section class="stats" id="growth-stats" style="padding:12px 16px 0"></section>
+              <div class="chart-card-body" id="growth-chart"></div>
+              <div class="table-wrap" style="margin-top:12px"><table class="tbl">
+                <thead><tr><th style="width:40%">任务</th><th>进度</th><th>奖励</th><th>状态</th><th style="width:92px">操作</th></tr></thead>
+                <tbody id="tb-growth"></tbody>
+              </table></div>
+              <div class="muted" id="growth-msg" style="padding:0 16px 14px">「进行中」的是行为类任务（关注公众号、体验某个专家），进度由官方服务端记录，脚本代替不了——点右边「去完成」会打开对应页面，你在 WorkBuddy 里做完动作，回来点「重新查询」，达标后就能「领取」。</div>
+            </section>
+          </div>
+
+          <!-- 7 签到中心 -->
+          <div class="view" id="view-signin">
+            <section class="card">
+              <div class="card-head"><h2>签到中心</h2><span id="sign-source" class="muted">原生直连 copilot.tencent.com</span></div>
+              <div class="btn-row" style="padding:12px 16px">
+                <select id="sign-uid" class="btn sm"></select>
+                <button class="btn primary" id="btn-native-checkin">立即签到</button>
+                <button class="btn" id="btn-native-growth">一键成长任务</button>
+                <button class="btn" id="btn-native-keepalive">活跃保活</button>
+                <button class="btn" id="btn-native-refresh">刷新 Token</button>
+                <button class="btn" id="btn-native-status">查询状态</button>
+                <button class="btn" id="btn-batch-checkin">批量签到全部</button>
+              </div>
+              <pre class="log" id="sign-log">选择账号后点「立即签到」；原生实现，不启动 exe。</pre>
+            </section>
+          </div>
+
+          <!-- 8 模型与档位 -->
+          <div class="view" id="view-models">
+            <section class="card">
+              <div class="card-head"><h2>模型与档位</h2>
+                <div class="btn-row"><span class="muted" id="model-source">实时抓取中…</span>
+                <button class="btn sm" id="btn-models-refresh">全部刷新</button></div>
+              </div>
+              <p class="muted" style="padding:0 24px 12px">按平台分组。WorkBuddy / CodeBuddy 走面板实时目录，<b>思考档位按模型单独设</b>（下拉里只列该模型支持的档位，改完即存）；其它平台点各卡片「刷新」按 <code>/models</code> 拉取。</p>
+              <div id="model-groups" style="padding:0 16px 16px"></div>
+            </section>
+          </div>
+
+          <!-- 8.5 创作：图像 / 视频生成 -->
+          <div class="view" id="view-create">
+            <p class="hint" style="padding-top:4px">在这里直接调用各平台的<b>画图 / 生成视频</b>接口，不用自己拼请求。前提是「上游管理」里那家平台<b>填了 Key</b>，而且它本身提供图像或视频接口——不是每家都有。</p>
+            <section class="card">
+              <div class="card-head"><h2>本地网关 API</h2>
+                <div class="btn-row">
+                  <span class="muted" id="ms-status">未启动</span>
+                  <button class="btn sm" id="btn-ms-logs">看服务日志</button>
+                  <button class="btn sm primary" id="btn-ms-start">启动服务</button>
+                  <button class="btn sm" id="btn-ms-stop">停止</button>
+                </div>
+              </div>
+              <p class="hint">启动后，<b>任何支持 OpenAI 的客户端</b>（Cherry Studio / Cline / 自己写的脚本）把地址填成下面这个，就能画图和生成视频，不用改它的代码：<code id="ms-base">http://127.0.0.1:7864/v1</code>。请求里可加 <code>"upstream":"z_ai"</code> 指定用哪家；不加就用第一个填了 Key 的上游。</p>
+              <div class="kv">
+                <div><span><b>对话</b></span><code>POST /v1/chat/completions　OpenAI 兼容；<b>stream:true 为真·逐字流式</b></code></div>
+                <div><span>文生图</span><code>POST /v1/images/generations　{ prompt, size, model?, upstream? }</code></div>
+                <div><span>图生图</span><code>POST /v1/images/edits　同上，多给 image（base64 或 data URL）</code></div>
+                <div><span>文生视频 / 图生视频</span><code>POST /v1/videos　{ prompt, image?, model?, upstream? }</code></div>
+                <div><span>查视频进度</span><code>GET /v1/videos/{id}?upstream=&lt;id&gt;&amp;zhipu=0|1</code></div>
+                <div><span>健康检查</span><code>GET /health</code></div>
+              </div>
+              <p class="hint"><b>流式是真的逐字出</b>：上游吐一个 token 就转发一个，首字延迟＝上游首字时间，不是等整段生成完再切帧。<b>上游是 Anthropic / Gemini 协议会自动翻成 OpenAI 的 SSE 格式</b>，客户端不用改。只有上游连续 90 秒没有任何新内容才会断开。<br><b>无窗口常驻</b>：命令行跑 <code>阿晓网关助手.exe --serve-only --port 7864</code> 只起服务不开窗口，适合开机自启或放服务器上；日志在「运行日志 → 网关服务日志」。</p>
+              <div class="cache-bar">
+                <label><input type="checkbox" id="cache-toggle" checked /> 响应缓存</label>
+                <span class="muted" id="cache-stat">读取中…</span>
+                <button class="btn sm" id="btn-cache-clear">清空缓存</button>
+              </div>
+              <p class="hint" style="margin-top:6px">相同请求 10 分钟内直接复用上一次的回答，<b>省 token 也省时间</b>。为了不帮倒忙，<b>温度 &gt; 0、带工具、n &gt; 1、流式</b>这四种请求不缓存——那些本来就该每次不一样。缓存只在内存里，关掉应用就没了。</p>
+              <div class="cache-bar" style="margin-top:8px">
+                <label>选路策略</label>
+                <select id="routing-strategy" class="btn sm" style="width:auto;min-width:200px">
+                  <option value="rr">轮转（默认，多个 Key 分摊）</option>
+                  <option value="health">按健康度（优先成功率高的）</option>
+                </select>
+                <span class="muted" id="routing-hint"></span>
+              </div>
+              <div class="cache-bar" style="margin-top:6px">
+                <label>谁能用</label>
+                <span class="muted" id="access-meta">未设 Key：本机任何程序都能调</span>
+                <button class="btn sm primary" id="btn-access-add">生成一个 Key</button>
+              </div>
+              <div id="access-list" style="padding:0 24px"></div>
+              <p class="hint" style="margin-top:6px">要把网关给<b>别人</b>用，先在这儿生成 Key——每个 Key 可以起名字、设每日次数上限，用完能随时停掉。<b>没生成 Key 时接口是全开的</b>（本机任何程序、包括浏览器网页都能调），只给自己用没问题，要分享就一定要先设。</p>
+              <pre class="log" id="ms-sample">curl -X POST http://127.0.0.1:7864/v1/images/generations ^
+  -H "content-type: application/json" ^
+  -d "{\"prompt\":\"一只戴红头巾的奶牛，商业海报风\",\"size\":\"1024x1024\"}"</pre>
+            </section>
+
+            <section class="card">
+              <div class="card-head"><h2>创作</h2>
+                <div class="btn-row">
+                  <select id="cr-upstream" class="btn sm"></select>
+                  <select id="cr-mode" class="btn sm" style="display:none">
+                    <option value="t2i">文生图</option>
+                    <option value="i2i">图生图</option>
+                    <option value="t2v">文生视频</option>
+                    <option value="i2v">图生视频</option>
+                  </select>
+                  <div class="seg" id="cr-mode-seg">
+                    <button class="seg-item on" data-mode="t2i">文生图</button>
+                    <button class="seg-item" data-mode="i2i">图生图</button>
+                    <button class="seg-item" data-mode="t2v">文生视频</button>
+                    <button class="seg-item" data-mode="t2a">文生音乐</button>
+                    <button class="seg-item" data-mode="i2v">图生视频</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cr-grid">
+                <div class="cr-main">
+                  <div class="field">
+                    <label>提示词 / 画面描述</label>
+                    <textarea id="cr-prompt" class="cr-prompt" spellcheck="false" placeholder="例：一只戴红头巾的奶牛站在橙色光带前，商业海报风，光线强烈，质感高级"></textarea>
+                    <div class="cr-count"><span id="cr-len">0</span> 字</div>
+                  </div>
+                  <div class="field" id="cr-img-wrap" hidden>
+                    <label>参考素材（图 / 视频 / 音频，可多选）</label>
+                    <label class="cr-drop" for="cr-image">
+                      <b>点击选择文件</b>
+                      <span>有的模型只吃首帧图，有的能加参考视频或配乐；不支持的类型上游会报错</span>
+                      <input type="file" id="cr-image" accept="image/*,video/*,audio/*" multiple hidden />
+                    </label>
+                    <div class="cr-files" id="cr-files"></div>
+                  </div>
+                </div>
+
+                <aside class="cr-side">
+                  <div class="field"><label>模型</label><input id="cr-model" placeholder="留空用默认，如 cogvideox-flash" /></div>
+                  <div class="field"><label>尺寸 / 分辨率</label>
+                    <input id="cr-size" list="cr-size-list" placeholder="1024x1024 / 16:9 / 1080p" />
+                    <datalist id="cr-size-list">
+                      <option>1024x1024</option><option>1024x1536</option><option>1536x1024</option>
+                      <option>512x512</option><option>1280x720</option><option>720x1280</option>
+                      <option>1920x1080</option><option>16:9</option><option>9:16</option><option>1:1</option>
+                    </datalist>
+                  </div>
+                  <div class="field" id="cr-dur-wrap" hidden><label>时长（秒）</label><input id="cr-duration" type="number" min="1" max="60" placeholder="5 / 10" /></div>
+                  <div class="field"><label>高级参数 JSON</label>
+                    <input id="cr-extra" placeholder='{"aspect_ratio":"9:16","seed":42}' />
+                    <small class="fh">各家私有字段原样透传</small>
+                  </div>
+                  <button class="btn primary cr-run" id="btn-cr-run">开始生成</button>
+                  <div class="cr-msg" id="cr-msg"></div>
+                </aside>
+              </div>
+
+              <div id="cr-result" class="cr-result" hidden></div>
+              <p class="hint" style="padding:0 16px 14px">支持情况：<b>图像</b>走 OpenAI 兼容的 <code>/images/generations</code>（图生图用 <code>/images/edits</code>）——OpenAI、智谱 CogView、硅基流动等都可以；<b>视频</b>智谱走 <code>/videos/generations</code> + 异步轮询，OpenAI 走 <code>/videos</code>。没有该接口的平台会提示 404，换一家即可。</p>
+            </section>
+          </div>
+
+          <!-- 9 上游管理 -->
+          <div class="view" id="view-upstreams">
+            <section class="card">
+              <div class="card-head"><h2>上游管理</h2><button class="btn sm" id="btn-add-upstream">新增上游</button></div>
+              <div class="btn-row" style="padding:12px 24px" id="upstream-presets"></div>
+              <details class="scan-fold" style="margin:10px 24px 14px">
+                <summary>更多免费厂商 <span class="muted" id="free-presets-count"></span></summary>
+                <div id="free-presets" class="btn-row" style="padding:10px 0 4px"></div>
+                <p class="hint" style="padding:4px 0 2px">来自 <b>FreeLLMAPI 目录</b>，只保留有对话接口的（搜索 / 抓取 / 语音类已剔除）。
+多数要各自控制台建 Key；<b>ModelScope（魔搭）国内可直连</b>，值得先试。</p>
+              </details>
+              <p class="hint" style="padding:12px 16px 0"><b>同一平台多把 Key</b>：点某行的「再加一条」，复制平台与地址后填新 Key 保存即可。
+多条会按权重<b>轮着用</b>（权重越大分到越多）；某条失败时自动切到下一条，不会整体报错。
+WorkBuddy 那种多账号不用在这加——去「账号管理」加账号，网关会一起轮。</p>
+              <div class="table-wrap"><table class="tbl"><thead><tr><th>ID</th><th>名称</th><th>Base URL</th><th>协议</th><th class="num">权重</th><th style="width:110px">健康度</th><th>状态</th><th style="width:170px">操作</th></tr></thead><tbody id="tb-upstreams"></tbody></table></div>
+              <p class="muted">支持 WorkBuddy / CodeBuddy / Trae / ZCode / Qoder 等上游；协议 openai / responses / anthropic。</p>
+            </section>
+          </div>
+
+          <!-- 10 协议与路由 -->
+          <div class="view" id="view-protocols">
+            <section class="card">
+              <div class="card-head"><h2>接入信息</h2><div class="btn-row">
+                <button class="btn sm" id="btn-copy-base">复制 Base URL</button>
+                <button class="btn sm" id="btn-copy-key">复制密钥</button>
+                <button class="btn sm danger" id="btn-rotate-key">重置密钥</button>
+              </div></div>
+              <div class="kv" id="access-info"></div>
+              <p class="muted" style="padding:0 24px 16px">网关密钥用于「客户端 → 网关」；各平台自己的 Key 在「上游管理」里单独设置。</p>
+            </section>
+            <section class="card">
+              <div class="card-head"><h2>模型映射</h2><div class="btn-row"><button class="btn sm primary" id="btn-mmap-save">保存映射</button><button class="btn sm" id="btn-mmap-reload">重新读取</button></div></div>
+              <p class="hint" style="padding:0 24px 6px">客户端写的模型名 → 上游实际认的名字，一行一条，格式 <code>客户端名=上游模型</code>。
+例：<code>gpt-4o=ep-20250101-abc123</code>（火山方舟）、<code>gpt-4o=doubao-pro-32k</code>。
+<b>不填就用客户端原样传的名字。</b></p>
+              <div style="padding:0 24px 10px"><textarea id="model-map" spellcheck="false" placeholder="例如：
+gpt-4o=ep-20250101-abc123
+claude-3-5-sonnet=doubao-pro-32k" style="min-height:96px"></textarea></div>
+              <div class="msg" id="mmap-msg" style="padding:0 24px 14px"></div>
+            </section>
+            <section class="card">
+              <div class="card-head"><h2>协议与路由</h2></div>
+              <div class="kv">
+                <div><span>OpenAI Chat</span><code>POST /v1/chat/completions</code></div>
+                <div><span>OpenAI Responses</span><code>POST /v1/responses</code></div>
+                <div><span>Anthropic Messages</span><code>POST /v1/messages</code></div>
+                <div><span>路由策略</span><code>权重优先 + 会话粘性 + 429/5xx 冷却 60s</code></div>
+                <div><span>切号策略</span><code>配额感知（credits）+ 权重</code></div>
+              </div>
+            </section>
+            <section class="card">
+              <div class="card-head"><h2>对话测试</h2><span class="muted">真实发一次请求，验证上游 Key 是否可用</span></div>
+              <div class="field-row" style="padding:12px 16px 0">
+                <div class="field"><label>上游</label><select id="pt-upstream" class="btn sm"></select></div>
+                <div class="field"><label>模型</label><input id="pt-model" placeholder="留空则用 gpt-4o-mini" /></div>
+              </div>
+              <div class="field" style="padding:0 16px 12px"><label>消息</label><input id="pt-msg" value="你好，请回一个字：好" /></div>
+              <div class="btn-row" style="padding:0 16px 12px">
+                <button class="btn primary" id="btn-pt-send">发送测试</button>
+                <span class="muted">成功后会写入「用量 / 成本账本」——那两页记的就是这种经网关的请求。</span>
+              </div>
+              <pre class="log" id="pt-log" style="margin:0 16px 16px">选一个上游，点「发送测试」。这里能看到状态码和返回内容。</pre>
+            </section>
+          </div>
+
+          <!-- 11 成本账本 -->
+          <div class="view" id="view-cost">
+            <section class="card">
+              <div class="card-head"><h2>成本账本</h2><span class="muted" id="cost-sum"></span></div><div class="chart-card-body" id="cost-chart"></div>
+              <div class="table-wrap"><table class="tbl"><thead><tr><th>时间</th><th>上游</th><th>模型</th><th class="num">Prompt</th><th class="num">Completion</th><th class="num">成本</th></tr></thead><tbody id="tb-cost"></tbody></table></div>
+            </section>
+          </div>
+
+          <!-- 12 定时任务 -->
+          <div class="view" id="view-schedule">
+            <section class="card">
+              <div class="card-head"><h2>定时任务</h2><button class="btn primary" id="btn-save-schedule">保存配置</button></div>
+              <div class="io-grid">
+                <div class="field"><label>自动签到（小时，逗号分隔）</label><input id="s-checkin" value="9,21" /></div>
+                <div class="field"><label>成长任务（小时）</label><input id="s-growth" value="1" /></div>
+                <div class="field"><label>猫鼠旅行（小时）</label><input id="s-travel" value="9,21" /></div>
+                <div class="field"><label>活跃上报（小时）</label><input id="s-activity" value="10" /></div>
+                <div class="field"><label>Token 保活（小时）</label><input id="s-keepalive" value="22" /></div>
+                <div class="field"><label>后台刷新余额（分钟）</label><input id="s-balance" value="5" /></div>
+              </div>
+              <div class="msg" id="schedule-msg"></div>
+            </section>
+          </div>
+
+          <!-- 13 请求日志 -->
+          <div class="view" id="view-requests">
+            <section class="card">
+              <div class="card-head"><h2>请求日志</h2>
+                <div class="btn-row"><select id="req-upstream" class="btn sm"><option value="">全部上游</option></select><span class="muted" id="req-count"></span></div>
+              </div><div class="chart-card-body" id="req-chart"></div>
+              <p class="hint">记录的是<b>经本网关转发</b>的请求（在「协议与路由 → 对话测试」或客户端指向 127.0.0.1:7863 时产生）。客户端直连官方不会出现在这里。</p>
+              <div class="table-wrap"><table class="tbl"><thead><tr><th style="width:170px">时间</th><th>账号</th><th>上游</th><th>模型</th><th class="num">Prompt</th><th class="num">Completion</th></tr></thead><tbody id="tb-requests"></tbody></table></div>
+            </section>
+          </div>
+
+          <!-- 14 运行日志 -->
+          <div class="view" id="view-logs">
+            <section class="card">
+              <div class="card-head"><h2>网关服务日志</h2>
+                <div class="btn-row">
+                  <select id="gwlog-level" class="btn sm"><option value="">全部级别</option><option value="INFO">只看 INFO</option><option value="WARN">只看 WARN</option></select>
+                  <input id="gwlog-q" class="btn sm" style="min-width:190px" placeholder="搜内容，如 流式 / 401 / 上游" />
+                  <span class="muted" id="gwlog-meta"></span>
+                  <button class="btn sm" id="btn-gwlog-refresh">刷新</button>
+                  <button class="btn sm" id="btn-gwlog-clear">清空</button>
+                </div>
+              </div>
+              <p class="hint">本地 API（<code>127.0.0.1:7864</code>）每收到一个请求、每次选上游、每一轮流式转发都记在这里。<b>客户端报错但看不出原因时先看这里</b>：一条都没有＝请求根本没到网关（客户端地址填错了）；出现 <code>401</code>＝Key 不对；出现 <code>上游 5xx</code>＝对方服务或网络不通。</p>
+              <div class="table-wrap" style="max-height:380px;overflow:auto"><table class="tbl"><thead><tr><th style="width:172px">时间</th><th style="width:64px">级别</th><th>内容</th></tr></thead><tbody id="tb-gwlog"></tbody></table></div>
+            </section>
+            <section class="card">
+              <div class="card-head"><h2>操作事件</h2>
+                <div class="btn-row">
+                  <select id="log-kind" class="btn sm"><option value="">全部类型</option></select>
+                  <input id="log-q" class="btn sm" style="min-width:200px" placeholder="搜详情，如 signin / 账号 uid" />
+                  <span class="muted" id="log-count"></span>
+                  <button class="btn sm" id="btn-log-refresh">刷新</button>
+                </div>
+              </div><div class="chart-card-body" id="log-chart"></div>
+              <p class="hint">记录的是<b>你在这个应用里做过的操作</b>（切号、签到、测试、保存等），跟上面的服务日志不是一回事：上面记「网关收到了什么」，这里记「你点了什么」。</p>
+              <div class="table-wrap"><table class="tbl"><thead><tr><th style="width:170px">时间</th><th style="width:110px">类型</th><th>详情</th></tr></thead><tbody id="tb-logs"></tbody></table></div>
+            </section>
+          </div>
+
+          <!-- 15 钩子 -->
+          <div class="view" id="view-hooks">
+            <section class="card">
+              <div class="card-head"><h2>钩子</h2><button class="btn sm" id="btn-add-hook">写测试钩子</button></div>
+              <div class="table-wrap"><table class="tbl"><thead><tr><th>时间</th><th>类型</th><th>详情</th></tr></thead><tbody id="tb-hooks"></tbody></table></div>
+            </section>
+          </div>
+
+          <!-- 16 配置 -->
+          <div class="view" id="view-config">
+            <p class="hint" style="padding-top:4px">这里改的是便携版网关的 <code>config.json</code>，<b>改完要点最下面的「保存配置」</b>，改监听地址 / 密钥这类需要重启网关才生效。<b>拿不准的别动</b>——出厂值已经能正常跑，每项下面都写了它管什么、建议填多少。</p>
+            <section class="card">
+              <div class="card-head"><h2>服务</h2><span class="muted" id="cfg-path"></span></div>
+              <div class="cfg-grid">
+                <div class="field"><label>监听地址</label><input id="cfg-listen" /><small class="fh">网关监听地址。<code>127.0.0.1:7863</code> 只本机能用；要让手机或别人连，改成 <code>0.0.0.0:7863</code>（先把密钥换掉）</small></div>
+                <div class="field"><label>API 密钥</label><input id="cfg-api-key" type="password" /><small class="fh">客户端连网关要用的钥匙，别人接入就发这个。改完重启网关生效</small></div>
+                <div class="field"><label>单账号明细默认展示条数</label><input id="cfg-pkg-limit" type="number" /><small class="fh">面板里每个账号卡片默认展示几条明细。5 够用，机器慢可降到 3</small></div>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="card-head"><h2>定时任务</h2><span class="muted">小时/分钟，逗号分隔</span></div>
+              <div class="cfg-grid">
+                <div class="field"><label>自动签到（小时）</label><input id="cfg-checkin" /><small class="fh">每天几点自动签到，24 小时制、逗号分隔。例 <code>9,21</code> = 早 9 点 + 晚 9 点</small></div>
+                <div class="field"><label>Token 保活（小时）</label><input id="cfg-keepalive" /><small class="fh">每天几点刷新一次 Token 保活。一天一次足够，默认 22 点</small></div>
+                <div class="field"><label>猫鼠旅行（小时）</label><input id="cfg-travel" /><small class="fh">每天几点派 Buddy 出去旅行（到点自动领礼物）。默认 <code>9,21</code></small></div>
+                <div class="field"><label>活跃上报（小时）</label><input id="cfg-activity" /><small class="fh">每天几点上报一次活跃，维持连登天数。默认 10 点</small></div>
+                <div class="field"><label>后台刷新余额（分钟）</label><input id="cfg-balance" type="number" /><small class="fh">每隔多少分钟刷新一次积分余额。5 分钟够用，别设太小免得被限流</small></div>
+                <div class="field"><label>成长任务自动执行（小时）</label><input id="cfg-growth" /><small class="fh">每几小时跑一次成长任务（自动接受 + 领取）。默认 1 小时</small></div>
+              </div>
+              <div class="cfg-checks">
+                <label><input type="checkbox" id="cfg-checkin-on" /> 自动签到</label>
+                <label><input type="checkbox" id="cfg-keepalive-on" /> Token 保活</label>
+                <label><input type="checkbox" id="cfg-travel-on" /> 猫鼠旅行</label>
+                <label><input type="checkbox" id="cfg-activity-on" /> 活跃上报</label>
+                <label><input type="checkbox" id="cfg-growth-on" /> 成长任务自动执行</label>
+                <label><input type="checkbox" id="cfg-balance-on" /> 后台刷新余额</label>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="card-head"><h2>账号池与流量治理</h2></div>
+              <div class="cfg-grid">
+                <div class="field"><label>单账号最大在途</label><input id="cfg-max-inflight" type="number" /><small class="fh">同一个账号同时最多挂几个请求。3 最稳，设大容易踩限流</small></div>
+                <div class="field"><label>国际版在途上限</label><input id="cfg-max-global" type="number" /><small class="fh">国际版账号的并发上限，一般比上面更小。默认 2</small></div>
+                <div class="field"><label>连续失败熔断阈值</label><input id="cfg-breaker-threshold" type="number" /><small class="fh">连续失败几次就把这个账号暂时摘掉。默认 3</small></div>
+                <div class="field"><label>软冷却基础</label><input id="cfg-soft-rate" /><small class="fh">遇到 429 软限流时，先冷却多久再试。例 <code>600s</code></small></div>
+                <div class="field"><label>软冷却上限</label><input id="cfg-soft-rate-max" /><small class="fh">反复被软限流时，冷却时间最长涨到多少。例 <code>2h</code></small></div>
+                <div class="field"><label>熔断基础时长</label><input id="cfg-breaker-cooldown" /><small class="fh">熔断（连续失败）后冷却多久。例 <code>30m</code></small></div>
+                <div class="field"><label>熔断上限</label><input id="cfg-breaker-max" /><small class="fh">多次熔断后，冷却时间上限。例 <code>6h</code></small></div>
+                <div class="field"><label>连续授权调频</label><input id="cfg-degrade-threshold" type="number" /><small class="fh">连续几次响应质量差（空回复 / 截断）就给它降权。默认 5</small></div>
+                <div class="field"><label>连续授权时长</label><input id="cfg-degrade-cooldown" /><small class="fh">降权一次持续多久。例 <code>10m</code></small></div>
+                <div class="field"><label>连续授权上限</label><input id="cfg-degrade-max" /><small class="fh">反复降权时，最长持续多久。例 <code>2h</code></small></div>
+                <div class="field"><label>闲置补偿 / 小时</label><input id="cfg-idle-weight" type="number" step="0.1" /><small class="fh">账号闲置越久优先级越高，每小时加多少权重。<code>0.5</code> = 每 2 小时涨 1</small></div>
+                <div class="field"><label>优先级上限</label><input id="cfg-idle-max" type="number" step="0.1" /><small class="fh">闲置补偿最多加到多少，防止老账号一直霸榜。默认 5</small></div>
+                <div class="field"><label>成本探索窗口</label><input id="cfg-cost-window" /><small class="fh">多久重新评估一次各账号的「性价比」。例 <code>30m</code></small></div>
+                <div class="field"><label>积分保底</label><input id="cfg-credit-floor" type="number" /><small class="fh">积分低于这个数就不再派活，留着别用光。默认 0</small></div>
+                <div class="field"><label>快过期检测窗口</label><input id="cfg-expiring-soon" /><small class="fh">多少小时内到期的积分算「快过期」，会被优先消耗。例 <code>168h</code> = 7 天</small></div>
+                <div class="field"><label>会话粘性 TTL</label><input id="cfg-sticky-ttl" /><small class="fh">同一会话多久内固定走同一账号，保持上下文连贯。例 <code>30m</code></small></div>
+              </div>
+              <div class="cfg-checks">
+                <label><input type="checkbox" id="cfg-prefer-expiring" /> 快过期积分优先</label>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="card-head"><h2>上游与高级</h2></div>
+              <div class="cfg-grid">
+                <div class="field"><label>标准超时（秒）</label><input id="cfg-timeout" type="number" /><small class="fh">单个请求最多等多久。120 秒够用，网络差可调大</small></div>
+                <div class="field"><label>聊天首字节超时（秒）</label><input id="cfg-header-timeout" type="number" /><small class="fh">等上游返回第一个字节的时间上限，流式响应慢就调大</small></div>
+                <div class="field"><label>流式超时（秒）</label><input id="cfg-idle-timeout" type="number" /><small class="fh">流式传输中，两段数据之间最多隔多久没动静就算超时</small></div>
+                <div class="field"><label>出站 User-Agent</label><input id="cfg-user-agent" /><small class="fh">出站请求伪装成哪个客户端。留空 = 用内置默认值</small></div>
+                <div class="field"><label>系统提示词模式</label>
+                  <select id="cfg-prompt-mode"><option value="passthrough">passthrough</option><option value="default">default</option></select>
+                  <small class="fh"><code>passthrough</code> 原样转发客户端的提示词；<code>default</code> 用下面文件里的提示词覆盖</small>
+                </div>
+                <div class="field"><label>提示词文件路径</label><input id="cfg-prompt-file" /><small class="fh">自定义系统提示词的文件路径，配合上面的 default 模式使用</small></div>
+              </div>
+              <div class="cfg-checks">
+                <label><input type="checkbox" id="cfg-sanitize" /> 出站请求指纹脱敏</label>
+                <label><input type="checkbox" id="cfg-sticky-on" /> 会话粘性</label>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="card-head"><h2>日志</h2></div>
+              <div class="cfg-grid">
+                <div class="field"><label>保留天数</label><input id="cfg-retention" type="number" /><small class="fh">请求日志保留几天，超期自动删。7 天够排查问题</small></div>
+                <div class="field"><label>容量上限（MB）</label><input id="cfg-archive-mb" type="number" /><small class="fh">日志目录最多占多少 MB，超了自动清理最旧的文件</small></div>
+              </div>
+              <div class="cfg-checks">
+                <label><input type="checkbox" id="cfg-archive" /> 日志开关</label>
+                <label><input type="checkbox" id="cfg-client-info" /> 记录调用来源</label>
+              </div>
+            </section>
+
+            <div class="cfg-actions">
+              <button class="btn" id="btn-cfg-reset">放弃修改</button>
+              <button class="btn primary" id="btn-cfg-save">保存配置</button>
+            </div>
+            <div class="msg" id="cfg-msg"></div>
+
+            <section class="card">
+              <div class="card-head"><h2>本地密钥与授权文件</h2></div>
+              <div class="btn-row" style="padding:12px 16px">
+                <button class="btn" id="btn-test-keyring">测试密钥保护</button>
+                <button class="btn" id="btn-read-auth">读取授权文件</button>
+              </div>
+              <pre class="log" id="config-log"></pre>
+            </section>
+          </div>
+
+          <!-- 17 导入导出 -->
+          <div class="view" id="view-io">
+            <p class="hint" style="padding-top:4px">「统一账号 JSON」= 一份能把<b>账号列表 + 客户端规则</b>整体搬走的文件。三个常见用法：<b>换电脑</b>（旧机导出 → 新机导入）、<b>备份</b>（导出一份存着）、<b>给同事</b>（导出时勾「含明文凭证」，他导入就能直接用）。</p>
+
+            <section class="card">
+              <div class="card-head"><h2>① 导入（把账号搬进来）</h2><span class="muted">不会删掉你现有的其它账号</span></div>
+              <p class="hint">两种给法<b>任选一个</b>：<b>方式一</b>点「选择文件」挑一个 .json；<b>方式二</b>把 JSON 内容粘到下面框里。两种都认——本应用导出的格式、便携版面板导出的 cockpit JSON 都能吞。<b>点「导入合并」</b>之后：同 ID 的账号会被更新，新账号追加进来，你原有的其它账号<b>一条都不会少</b>。</p>
+              <div class="io-grid" style="padding:0 16px 4px">
+                <div class="field"><label>方式一 · 选择 JSON 文件</label><input type="file" id="file-import" accept=".json,application/json" /></div>
+                <div class="field"><label>方式二 · 把 JSON 粘到这里</label><textarea id="import-text" spellcheck="false" placeholder='{ "schemaVersion": "1.0.0", "accounts": [ { "id": "wb_xxx", "client": "workbuddy", "displayName": "我的号", "accountId": "xxxx" } ] }'></textarea></div>
+              </div>
+              <div class="btn-row" style="padding:0 16px 8px"><button class="btn primary" id="btn-import">导入合并</button></div>
+              <div class="msg" id="io-msg" style="padding:0 16px 12px"></div>
+            </section>
+
+            <section class="card">
+              <div class="card-head"><h2>② 导出（把账号搬出去）</h2><span class="muted">生成后可复制，也可直接存成文件</span></div>
+              <p class="hint">先决定要不要勾 <b>含明文凭证</b>：<b>不勾</b> = 只有账号名、积分这类信息，拿到的人还得自己重新登录；<b>勾上</b> = 连 token 一起导出，别人导入后立刻能用（<b>等于把你的账号给了对方，别传网盘 / 群</b>）。然后点「生成」，下面框里就会出内容；要文件就点「另存为文件」。</p>
+              <div style="padding:0 16px">
+                <label class="check"><input type="checkbox" id="chk-tokens" /> 含明文凭证（勾上后人家的导入即可直接用，慎发）</label>
+                <div class="field"><label>生成结果（只读）</label><textarea id="export-text" readonly spellcheck="false" placeholder="点下面的「生成」，这里会出现 JSON"></textarea></div>
+                <div class="btn-row" style="padding-bottom:14px"><button class="btn" id="btn-export">生成</button><button class="btn primary" id="btn-download">另存为文件</button></div>
+              </div>
+            </section>
+          </div>
+
+          <!-- 18 融合组件 -->
+          <div class="view" id="view-components">
+            <section class="card"><div class="card-head"><h2>运行组件</h2><span class="muted" id="comp-count"></span></div>
+              <p class="hint" style="padding:12px 16px 0">三态含义：<b>就绪</b>=正在跑或用到了；<b>已内置</b>=这项能力已经做进本应用，
+外部 exe 没有也不影响（不用去找那个文件）；<b>未安装</b>=可选组件，装了才有。</p>
+              <div id="comp-list" class="comp-list"></div></section>
+            <section class="card"><div class="card-head"><h2>已下载的开源仓库（14）</h2><span class="muted">fusion/vendor</span></div><div class="table-wrap"><table class="tbl"><thead><tr><th>仓库</th><th>语言</th><th>体积</th><th>能力</th></tr></thead><tbody id="tb-vendor"></tbody></table></div></section>
+          </div>
+
+          <!-- 19 设置 -->
+          <div class="view" id="view-settings">
+            <div class="set-grid">
+              <section class="card set-main">
+              <div class="card-head"><h2>支持工具</h2><span class="muted">检测本机安装状态</span></div>
+              <div class="table-wrap"><table class="tbl"><thead><tr><th>工具</th><th>状态</th><th>路径</th><th>说明</th><th>启用</th></tr></thead><tbody id="tb-tools"></tbody></table></div>
+            </section>
+              <div class="set-side">
+
+            <section class="card">
+              <div class="card-head"><h2>自动设置</h2><div class="btn-row"><button class="btn sm" id="btn-switch-signall">全部立即签到</button><button class="btn sm primary" id="btn-save-auto">保存</button></div></div>
+              <div class="cfg-grid">
+                <div class="field"><label>签到小时</label><input id="sw-checkin-hours" placeholder="9,21" /></div>
+                <div class="field"><label>轮换间隔（分钟）</label><input id="sw-rotate-min" type="number" /></div>
+              </div>
+              <div class="cfg-checks">
+                <label><input type="checkbox" id="sw-auto-signin" /> 自动签到</label>
+                <label><input type="checkbox" id="sw-auto-travel" /> 自动旅行</label>
+                <label><input type="checkbox" id="sw-auto-rotate" /> CLI 自动轮换</label>
+                <label><input type="checkbox" id="sw-launch" /> 开机自启</label>
+                <label><input type="checkbox" id="sw-companion" /> 显示伴侣</label>
+              </div>
+              <div class="msg" id="sw-msg"></div>
+            </section>
+
+            <section class="card">
+              <div class="card-head"><h2>CodeBuddy CLI 自动轮换</h2><button class="btn sm" id="btn-cli-check">立即检查一次</button></div>
+              <div class="kv" id="cli-info"></div>
+            </section>
+
+            <section class="card">
+              <div class="card-head"><h2>本机</h2></div>
+              <div class="kv">
+                <div><span>主题</span><code>浅色</code></div>
+                <div><span>开机自启</span><code>关闭</code></div>
+                <div><span>网关端口</span><code>7863（由内置内核使用）</code></div>
+                <div><span>密钥保护</span><code>Windows 凭据管理器</code></div>
+              </div>
+            </section>
+          </div>
+            </div>
+          </div>
+
+          <!-- 19.5 更新日志 -->
+          <div class="view" id="view-changelog">
+            <section class="card">
+              <div class="card-head"><h2>更新日志</h2>
+                <div class="btn-row"><span class="muted" id="cl-version">—</span><button class="btn sm" id="btn-cl-github">在 GitHub 看</button></div>
+              </div>
+              <p class="hint">每次改动都记在这里。<b>升级后不知道变了什么，就看这一页</b>——它随 exe 一起打包，不联网也能看。</p>
+              <div class="cl-body" id="cl-body">读取中…</div>
+            </section>
+          </div>
+
+          <!-- 20 关于 -->
+          <!-- 扩展能力 -->
+          <div class="view" id="view-extras">
+            <div class="section-head"><h2>扩展能力</h2><span class="muted">每张卡下面都写了「这是干啥的、怎么用」</span></div>
+
+            <section class="card">
+              <div class="card-head"><h2>移动端常驻</h2><button class="btn sm" id="btn-lan-open">开放局域网</button></div>
+              <p class="hint">网关默认只听 <code>127.0.0.1</code>，手机连不上。<b>点「开放局域网」</b>后，同一 WiFi 下的手机 / 平板就能打开面板和接口；上面会显示可以直接输进手机的地址。<b>注意</b>：开放后同网段谁都能访问，先把 <code>config.json</code> 里的 <code>api_key</code> 改成自己的随机串再开；公网使用请走反向代理 + HTTPS。</p>
+              <div class="kv" id="mobile-info"></div>
+            </section>
+
+            <section class="card">
+              <div class="card-head"><h2>控制面</h2><button class="btn sm primary" id="btn-cp-save">保存</button></div>
+              <p class="hint">把网关「分给别人用」时才需要。<b>分发的 Key</b>：填进去之后，客户端必须带其中一个 Key 才调得动（不带或不匹配直接拒），每行一个；<b>白名单</b>：填模型名片段，只放行匹配的模型（例如 <code>claude</code> <code>gpt-4o</code>），每行一个。<b>两个框都留空 = 不限制</b>，自己本机用保持空着就行。</p>
+              <div class="io-grid">
+                <div class="field"><label>分发的 Key（每行一个，例：sk-abc123）</label><textarea id="cp-keys" spellcheck="false" placeholder="sk-abc123&#10;sk-def456"></textarea></div>
+                <div class="field"><label>IP / 模型白名单（每行一个，例：claude / gpt-4o）</label><textarea id="cp-whitelist" spellcheck="false" placeholder="claude&#10;gpt-4o&#10;deepseek"></textarea></div>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="card-head"><h2>极简 CLI 会话复用</h2><button class="btn sm" id="btn-cli-reuse">导入为账号</button></div>
+              <p class="hint">本机已经装过并登录过 CodeBuddy CLI？<b>点「导入为账号」</b>会把它的登录态直接读进账号池，<b>不用再扫码登录一遍</b>。前提是下面「CLI 配置」那一行有路径；显示「未接入」说明没装或没登录过。</p>
+              <div class="kv" id="cli-reuse-info"></div>
+            </section>
+
+            <section class="card">
+              <div class="card-head"><h2>客户端配置导出</h2><span class="muted">一键写进各客户端的配置文件</span></div>
+              <p class="hint">把「网关地址 + 密钥」自动写进对应客户端的配置文件，<b>点一下就好，不用手抄</b>：<b>Claude Code</b> → <code>~/.claude</code>；<b>Codex</b> → <code>~/.codex</code>；<b>DSH</b> → <code>~/.dsh</code>；<b>通用 JSON</b> 给你手动粘到别处。写完重启客户端生效。不知道选哪个就点「通用 JSON」，先把地址复制出来。</p>
+              <div class="btn-row" style="padding:0 24px 12px">
+                <button class="btn sm" data-export-client="claude_code">Claude Code</button>
+                <button class="btn sm" data-export-client="codex">Codex</button>
+                <button class="btn sm" data-export-client="dsh">DSH</button>
+                <button class="btn sm" data-export-client="generic">通用 JSON</button>
+              </div>
+              <div class="msg" id="export-msg"></div>
+            </section>
+
+            <section class="card">
+              <div class="card-head"><h2>上下文压缩</h2><button class="btn sm primary" id="btn-compress-save">保存</button></div>
+              <p class="hint">对话太长时上游会按整段计费。<b>勾上「启用压缩」</b>后，转发前只保留 <code>system</code> + 最近 6 条，单条超过「上限」字符会被截断，能明显省 token。<b>代价是会丢早期上下文</b>，需要 AI 记住前面内容时别开。默认关闭，改了记得点保存。</p>
+              <div class="cfg-grid"><div class="field"><label>单条上限（字符）</label><input id="compress-max" type="number" placeholder="12000" /></div></div>
+              <div class="cfg-checks"><label><input type="checkbox" id="compress-on" /> 启用压缩（保留 system + 最近 6 条）</label></div>
+            </section>
+
+            <section class="card">
+              <div class="card-head"><h2>官方 API + MCP</h2><div class="btn-row">
+                <button class="btn sm" id="btn-add-official">添加常用 6 家</button>
+                <button class="btn sm" data-open-path="scripts/mcp-server.mjs">MCP 脚本</button>
+                <button class="btn sm" data-open-path="deploy/cloudflare-worker.js">CF Worker</button>
+              </div></div>
+              <p class="hint"><b>「添加常用 6 家」</b>会把 OpenAI / Gemini / DeepSeek 这些一键加成上游，<b>然后一定要去「上游管理」逐个填各自的 Key</b>，不然调用会 401。下面那段 JSON 是 MCP 配置：复制到 Claude Code / Codex 的 <code>mcpServers</code> 里，AI 就能直接调这个网关。不用 MCP 的话忽略它。</p>
+              <div class="kv" id="official-info"></div>
+              <pre class="log" id="mcp-snippet"></pre>
+            </section>
+
+            <section class="card">
+              <div class="card-head"><h2>ZCode off-peak 队列</h2><button class="btn sm" id="btn-zcode-enqueue">加入测试任务</button></div>
+              <p class="hint">用来<b>把不着急的请求排到半价时段</b>跑。窗口默认 <code>00:00-08:00</code>，队列里任务会在窗口内自动执行。<b>点「加入测试任务」</b>只是往队列塞一条试试，用来确认队列能动；真实任务由网关按窗口排队。不想用了把队列清空即可。</p>
+              <div class="cfg-grid"><div class="field"><label>Off-peak 窗口</label><input id="zcode-window" placeholder="00:00-08:00" /></div></div>
+              <div class="kv" id="zcode-info"></div>
+            </section>
+
+            <section class="card">
+              <div class="card-head"><h2>10 上游 + 思考档位</h2><button class="btn sm primary" id="btn-thinking-save">保存</button></div>
+              <p class="hint">思考档位决定模型「想多久」：<code>low</code> 快但浅，<code>high/max</code> 深但慢且费。<b>优先级：模型级（去「模型与档位」页按模型设）&gt; 这里的上游级 &gt; 默认</b>。拿不准就选 <code>default</code>——它表示<b>完全不改请求体</b>，把客户端的原始参数原样转发，最安全。</p>
+              <div class="cfg-grid"><div class="field"><label>该上游默认档位（模型级优先，见「模型与档位」）</label><select id="thinking-level">
+                <option value="default">default（不干预，原样转发）</option>
+                <option value="minimal">minimal</option>
+                <option value="low">low（快）</option>
+                <option value="medium">medium（标准）</option>
+                <option value="high">high（深度）</option>
+                <option value="xhigh">xhigh（更深）</option>
+                <option value="max">max（最耗算力）</option>
+              </select></div></div>
+              <div id="thinking-list" class="comp-list"></div>
+            </section>
+          </div>
+
+          <!-- 能力覆盖 -->
+          <div class="view" id="view-coverage">
+            <div class="section-head"><h2>能力覆盖</h2><span class="muted">按全景清单「能力矩阵」逐项核对</span></div>
+            <section class="card">
+              <div class="table-wrap"><table class="tbl"><thead><tr><th>能力</th><th>来源</th><th>状态</th></tr></thead><tbody id="tb-coverage"></tbody></table></div>
+            </section>
+          </div>
+
+          <div class="view" id="view-about">
+            <section class="card">
+              <div class="card-head"><h2>关于 / 更新</h2></div>
+              <div class="kv">
+                <div><span>产品</span><code>阿晓网关助手</code></div>
+                <div><span>版本</span><code>0.1.0</code></div>
+                <div><span>形态</span><code>Tauri v2 · Rust + WebView2</code></div>
+                <div><span>融合来源</span><code>网关便携版 + 全景清单 + workbuddy-switch + 签到助手</code></div>
+                <div><span>开源仓库</span><code>fusion/vendor · 14 个</code></div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 添加账号 -->
+    <div class="modal-mask" id="modal-add">
+      <div class="modal wide">
+        <div class="modal-head"><h3>添加账号</h3><button class="x" id="modal-close">×</button></div>
+        <div class="add-tabs" id="add-tabs">
+          <button class="add-tab on" data-tab="login">浏览器登录</button>
+          <button class="add-tab" data-tab="platform">其他平台</button>
+          <button class="add-tab" data-tab="import">导入 JSON</button>
+        </div>
+        <div class="modal-body">
+          <div id="add-tab-login">
+            <div class="realm-row">
+              <span class="lbl">版本：</span>
+              <label><input type="radio" name="addRealm" value="cn" checked /> 国内版（CN）</label>
+              <label><input type="radio" name="addRealm" value="global" /> 国际版（Global）</label>
+            </div>
+            <p class="muted">国际版登录后，网关自动完成注册地区、激活与试用额度领取，全程无需手动操作。</p>
+            <div class="btn-row">
+              <button class="btn primary" id="btn-start-login">获取授权链接</button>
+              <button class="btn" id="btn-open-url" hidden>打开链接</button>
+              <button class="btn" id="btn-copy-url" hidden>复制链接</button>
+            </div>
+            <div id="add-url" class="url-box" hidden></div>
+            <div id="add-login-msg" class="msg"></div>
+          </div>
+          <div id="add-tab-platform" hidden>
+            <details class="scan-fold">
+              <summary>扫描本机已登录的客户端（可选，能手找 Key 就跳过）</summary>
+              <div class="btn-row" style="margin:8px 0"><button class="btn sm" id="btn-scan-creds">开始扫描</button><span class="muted">读 Trae / ZCode / DSH / CodeBuddy CLI 的本地凭据</span></div>
+              <div id="scan-result"></div>
+            </details>
+
+            <div class="cfg-grid" style="grid-template-columns:1fr 1fr">
+              <div class="field"><label>平台</label><select id="add-plat-select"></select></div>
+              <div class="field"><label>协议</label>
+                <select id="add-plat-proto">
+                  <option value="openai">OpenAI Chat Completions</option>
+                  <option value="anthropic">Anthropic Messages</option>
+                  <option value="responses">OpenAI Responses</option>
+                  <option value="gemini">Google Gemini（原生 generateContent）</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="add-plat-tip" class="hint" style="padding:0 0 10px"></div>
+
+            <div class="field"><label>Base URL</label><input id="add-plat-base" placeholder="https://..." /></div>
+            <div id="plat-probe" class="hint" style="padding:0 0 6px"></div>
+            <div class="btn-row" style="margin:0 0 10px"><button class="btn sm" id="btn-plat-probe">检测本机服务</button></div>
+
+            <div class="field"><label>API Key</label><input id="add-plat-key" type="password" placeholder="粘贴控制台生成的 Key（sk-… / ek-…）" autocomplete="off" /></div>
+            <div class="btn-row" style="margin:-4px 0 12px"><button class="btn sm" id="btn-plat-paste">从剪贴板读取</button></div>
+
+            <div class="field"><label>模型 / 接入点 ID（可选）</label><input id="add-plat-model" placeholder="留空用平台默认模型；火山方舟填 ep-xxxx" /></div>
+
+            <div class="modal-foot" style="border:0;padding:6px 0 0;margin:0 -2px"><button class="btn primary" id="btn-save-plat">保存并启用</button></div>
+            <div id="add-plat-msg" class="msg"></div>
+          </div>
+          <div id="add-tab-import" hidden>
+            <div class="field"><label>选择 JSON 文件（cockpit 格式）</label><input type="file" id="add-import-file" accept=".json,application/json" /></div>
+            <p class="muted">支持面板导出的 cockpit JSON。</p>
+            <div id="add-import-msg" class="msg"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 上游编辑 -->
+    <div class="modal-mask" id="modal-upstream">
+      <div class="modal">
+        <div class="modal-head"><h3>上游</h3><button class="x" id="up-close">×</button></div>
+        <div class="modal-body">
+          <div class="field"><label>ID</label><input id="u-id" placeholder="trae" /></div>
+          <div class="field"><label>名称</label><input id="u-name" placeholder="Trae Code CN" /></div>
+          <div class="field"><label>Base URL</label><input id="u-base" placeholder="https://..." /></div>
+          <div class="field"><label>API Key</label><input id="u-key" placeholder="可选" /></div>
+          <div class="field"><label>默认模型 / 接入点 ID</label><input id="u-model" placeholder="可选，如 ep-xxxxxxxx 或 gpt-4o" /></div>
+          <div class="field"><label>协议</label><select id="u-proto"><option value="openai">openai</option><option value="responses">responses</option>
+              <option value="gemini">gemini</option><option value="anthropic">anthropic</option></select></div>
+          <div class="field"><label>权重</label><input id="u-weight" type="number" value="1" step="0.1" /></div>
+          <div class="btn-row"><button class="btn" id="up-cancel">取消</button><button class="btn primary" id="up-save">保存</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <script src="guide-when.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

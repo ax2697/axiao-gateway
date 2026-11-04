@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WorkBuddy 账号壳 · 全功能</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <!-- 7863 完整面板（反向代理嵌入，自动登录） -->
+    <iframe id="panel-frame" src="/panel/#accounts" title="WorkBuddy2API 面板"></iframe>
+
+    <!-- 壳功能入口 -->
+    <button id="fab" title="账号壳功能">壳</button>
+
+    <!-- 抽屉 -->
+    <aside id="drawer" class="drawer">
+      <header class="drawer-head">
+        <div>
+          <strong>账号壳</strong>
+          <small>导入导出 · 签到 · 切换</small>
+        </div>
+        <button class="x" id="drawer-close">×</button>
+      </header>
+      <nav class="drawer-tabs" id="drawer-tabs">
+        <button class="active" data-d="io">导入导出</button>
+        <button data-d="signin">签到</button>
+        <button data-d="switch">切换</button>
+        <button data-d="comp">组件</button>
+        <button data-d="matrix">开源矩阵</button>
+        <button data-d="settings">设置</button>
+      </nav>
+      <div class="drawer-body">
+        <!-- 导入导出 -->
+        <section class="d-panel active" id="d-io">
+          <div class="field">
+            <label>选择 JSON 文件</label>
+            <input type="file" id="file-import" accept=".json,application/json" />
+          </div>
+          <div class="field">
+            <label>或粘贴统一账号 JSON</label>
+            <textarea id="import-text" spellcheck="false" placeholder='{ "schemaVersion": "1.0.0", "clientRules": [...], "accounts": [...] }'></textarea>
+          </div>
+          <div class="btn-row">
+            <button class="btn" id="btn-validate">仅校验</button>
+            <button class="btn primary" id="btn-import">导入合并</button>
+          </div>
+          <div id="io-msg" class="msg"></div>
+          <hr />
+          <label class="check"><input type="checkbox" id="chk-tokens" /> 导出含明文凭证（默认脱敏）</label>
+          <div class="btn-row">
+            <button class="btn" id="btn-export">生成</button>
+            <button class="btn primary" id="btn-download">下载 JSON</button>
+          </div>
+          <textarea id="export-text" readonly spellcheck="false" placeholder="点「生成」后显示"></textarea>
+        </section>
+
+        <!-- 签到 -->
+        <section class="d-panel" id="d-signin">
+          <p class="muted">复用本机 <code>WorkBuddy签到助手.exe</code>（bworkbuddy / WorkBuddy-Daily）。点击后需确认再启动。</p>
+          <div class="kv" id="signin-info"></div>
+          <div class="btn-row"><button class="btn primary" id="btn-signin">启动签到助手</button></div>
+          <div id="signin-msg" class="msg"></div>
+        </section>
+
+        <!-- 切换 -->
+        <section class="d-panel" id="d-switch">
+          <p class="muted">切换会写回 CodeBuddy 授权文件（原文件自动备份）。</p>
+          <div id="switch-list" class="switch-list"></div>
+        </section>
+
+        <!-- 组件 -->
+        <section class="d-panel" id="d-comp">
+          <p class="muted">本地已就绪的开源件，点「启动」直接拉起（面板已内嵌）。</p>
+          <div id="comp-list" class="switch-list"></div>
+        </section>
+
+        <!-- 开源矩阵 -->
+        <section class="d-panel" id="d-matrix">
+          <p class="muted">清单里每个项目的接入状态：已用 / 可切换内核 / 仅参考。一个网关内核同时只能跑一个。</p>
+          <div id="matrix-list" class="matrix"></div>
+        </section>
+
+        <!-- 设置 -->
+        <section class="d-panel" id="d-settings">
+          <div class="kv" id="settings-info"></div>
+        </section>
+      </div>
+    </aside>
+
+    <div class="toast" id="toast"></div>
+    <script src="/app.js"></script>
+  </body>
+</html>

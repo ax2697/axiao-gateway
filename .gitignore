@@ -1,0 +1,40 @@
+# deps / build
+node_modules/
+src-tauri/target/
+src-tauri/gen/
+dist/*
+!dist/README.md
+*.o
+*.rlib
+# 预编译资源（manifest+图标），GNU 构建必需，要入库
+!src-tauri/resource.o
+
+# release artifacts (走 GitHub Release，不进仓库)
+release/
+
+# secrets / runtime data
+config.json
+auths/
+data/
+*.axiao-bak
+*.json.axiao-bak
+*.log
+
+# vendored repos (fetch with scripts/fetch-vendor.ps1)
+vendor/
+fusion/vendor/
+
+# AI 工作区（过程产物，不入库）
+AI工作区/
+
+# binaries
+*.exe
+*.msi
+*.dmg
+*.AppImage
+!third_party/**/README*
+
+# editor
+.vscode/
+.idea/
+.DS_Store

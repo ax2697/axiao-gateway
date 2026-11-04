@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "1.0.0",
+  "exportedAt": "2026-11-03T19:45:00+08:00",
+  "generator": "wb-switch",
+  "clientRules": [
+    {
+      "name": "workbuddy",
+      "displayName": "WorkBuddy",
+      "configPath": [".workbuddy", "mcp.json"],
+      "markerPath": [".workbuddy"],
+      "skillPath": [".workbuddy", "skills"],
+      "format": "json",
+      "authFile": "AppData/Local/CodeBuddyExtension/Data/Public/auth.workbuddy.workbuddy-ai",
+      "apiBase": "https://copilot.tencent.com"
+    },
+    {
+      "name": "codebuddy",
+      "displayName": "CodeBuddy",
+      "configPath": [".codebuddy", "mcp.json"],
+      "markerPath": [".codebuddy"],
+      "skillPath": [".codebuddy", "skills"],
+      "format": "json"
+    },
+    {
+      "name": "trae",
+      "displayName": "Trae",
+      "configPath": ["AppData/Roaming/Trae/User/mcp.json"],
+      "markerPath": ["AppData/Roaming/Trae/User"],
+      "skillPath": [".trae", "skills"],
+      "format": "json"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "acc_wb_01",
+      "client": "workbuddy",
+      "displayName": "主号",
+      "accountId": "wb_8f3a1c",
+      "accessToken": null,
+      "refreshToken": null,
+      "expiresAt": "2026-12-01T00:00:00+08:00",
+      "credits": 3000,
+      "creditUsage": 1200,
+      "creditExpiry": "2026-12-31",
+      "enabled": true,
+      "lastUsedAt": "2026-11-03T09:00:00+08:00",
+      "region": "cn",
+      "source": "switch",
+      "notes": "主用账号，签到+成长任务"
+    },
+    {
+      "id": "acc_cb_01",
+      "client": "codebuddy",
+      "displayName": "备用号",
+      "accountId": "cb_2d9e77",
+      "accessToken": null,
+      "refreshToken": null,
+      "expiresAt": "2026-11-20T00:00:00+08:00",
+      "credits": 800,
+      "creditUsage": 200,
+      "creditExpiry": "2026-11-30",
+      "enabled": true,
+      "lastUsedAt": "2026-11-02T21:30:00+08:00",
+      "region": "intl",
+      "source": "signin",
+      "notes": "国际站，免费额度优先"
+    }
+  ]
+}
