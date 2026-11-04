@@ -6,8 +6,9 @@ dist/*
 !dist/README.md
 *.o
 *.rlib
-# 预编译资源（manifest+图标），GNU 构建必需，要入库
-!src-tauri/resource.o
+# 资源对象（manifest+图标+版本信息）由 scripts/build.ps1 从 src-tauri/resource.rc 现场生成。
+# 不入库的理由：二进制不会跟着版本号变（曾出现 exe 是 0.9.3 而源码 0.9.5 的漂移），
+# 且别人 clone 拿到的是别人机器的产物。事实源是 resource.rc（文本），那个才入库。
 
 # release artifacts (走 GitHub Release，不进仓库)
 release/

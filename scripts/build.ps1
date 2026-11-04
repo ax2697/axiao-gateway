@@ -32,12 +32,30 @@ if (-not (Test-Path "node_modules")) {
   npm install
 }
 
-# 资源对象必须存在：没有它 exe 就没有 .rsrc 段，等于没嵌 manifest，
-# 双击会以 0xC0000139 秒退（见 docs/BUILD-NOTES.md 坑 9）。
-# build.rs 会自动把这个 .o 链进 exe，这里只负责在缺失时喊一声。
-if (-not (Test-Path "src-tauri\resource.o")) {
-  Write-Warning "缺少 src-tauri/resource.o —— 产出的 exe 会缺 manifest，双击可能闪退（坑 9）"
-  Write-Warning "生成：windres --input src-tauri/resource.rc --output src-tauri/resource.o --include-dir src-tauri --output-format=coff"
+# 资源对象：GNU 兜底路线必需（exe 的 .rsrc 段，含 Common Controls v6 manifest + 图标 + 版本信息）。
+#
+# 为什么现场生成而不是入库：
+#   resource.o 是**二进制**，入库会带来两个问题 ——
+#   ① 换机器 / 换版本号时它不会跟着变（曾出现过 exe 显示 0.9.3 而源码是 0.9.5 的漂移）；
+#   ② 别人 clone 拿到的是别人机器编译的产物，图标/manifest 可能对不上。
+#   真正的**事实源**是同目录的 resource.rc（文本），它才该入库。
+#   所以这里每次构建都从 rc 重新编一次，版本号永远跟着 rc 走。
+#
+# 没它 exe 会缺 manifest，双击以 0xC0000139 秒退（见 docs/BUILD-NOTES.md 坑 9）。
+$rcPath = "src-tauri\resource.rc"
+$resObj = "src-tauri\resource.o"
+if ($env:TAURI_SKIP_WINRES -eq "1") {
+  if (-not (Test-Path $rcPath)) { throw "缺少 $rcPath（资源事实源）" }
+  $windres = Get-Command "windres.exe" -ErrorAction SilentlyContinue
+  if (-not $windres) {
+    throw "找不到 windres.exe —— 设 MINGW_BIN 指向 MinGW 的 mingw64\bin（见 docs/BUILD-NOTES.md 坑 5）"
+  }
+  Write-Host "生成资源对象：$($windres.Source) -i $rcPath -o $resObj"
+  & $windres.Source --input $rcPath --output $resObj --include-dir "src-tauri" --output-format=coff
+  if ($LASTEXITCODE -ne 0) { throw "windres 失败（exit $LASTEXITCODE）" }
+  Write-Host "OK -> $resObj"
+} elseif (-not (Test-Path $resObj)) {
+  Write-Warning "缺少 $resObj（正常路线由 tauri-build 自己编，不需要它）"
 }
 
 npx tauri build --no-bundle
